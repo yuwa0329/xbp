@@ -1,27 +1,163 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>XBP_HPsample</title>
+
+    <title>XBP_portfolio</title>
+
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    <logotohome>
-    <a href="./index.html"><img src="./images/0_XBlogo.png" alt=""></a>
-    </logotohome>
-    <h1>XBP</h1>
-        <h2>yuwaのポートフォリオ一覧</h2>
-        <!-- このようにするとコードとして認識されない。（メモができる）-->
-        <!--番号付きのリスト-->
-        <ol>
-            <li><a href="./de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
-            <li><a href="./digi_fab/index.html">デジタルファブリケーション</a></li>
-        </ol>
 
-            
-        <br>
-        <br>
+
+<body>
+
+
+    <!-- ==========================
+         ヘッダー
+    =========================== -->
+
+    <header>
+
+        <div class="logo">
+
+            <a href="./index.html">
+                <img src="./images/0_XBlogo.png" alt="XBP">
+            </a>
+
+            <span>XBP</span>
+
+        </div>
+
+
+        <!-- ナビゲーション -->
+
+        <nav>
+
+            <a href="./index.html">
+                HOME
+            </a>
+
+            <a href="#">
+                ABOUT
+            </a>
+
+            <a href="./index.html">
+                PORTFOLIO
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ==========================
+         メイン
+    =========================== -->
+
+    <main>
+
+
+        <!-- 小さいタイトル -->
+
+        <p class="small-title">
+            YUWA'S PORTFOLIO
+        </p>
+
+
+
+        <!-- メインタイトル -->
+
+        <h1>
+
+            yuuwaの<br>
+
+            <span>
+                ポートフォリオ一覧
+            </span>
+
+        </h1>
+
+
+
+        <!-- 説明文 -->
+
+        <p class="description">
+
+            デザイン演習Ⅰ・Ⅱとデジタルファブリケーションの作品をまとめています。
+
+        </p>
+
+
+
+        <!-- ==========================
+             ポートフォリオ一覧
+        =========================== -->
+
+        <div class="portfolio-list">
+
+
+            <!-- デザイン演習 -->
+
+            <a href="./de12/index.html"
+               class="portfolio-item">
+
+                <span class="number">
+                    01
+                </span>
+
+
+                <strong>
+                    デザイン演習Ⅰ・Ⅱ
+                </strong>
+
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- デジタルファブリケーション -->
+
+            <a href="./digi_fab/index.html"
+               class="portfolio-item">
+
+                <span class="number">
+                    02
+                </span>
+
+
+                <strong>
+                    デジタルファブリケーション
+                </strong>
+
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ==========================
+         背景のX
+    =========================== -->
+
+    <div class="big-x">
+        X
+    </div>
 
 
 </body>
+
 </html>

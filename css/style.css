@@ -1,54 +1,1512 @@
-@charset "utf-8";
-/* 冒頭でimport */
-@import url('https://fonts.googleapis.com/css?family=Raleway:700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,700&display=swap&subset=japanese');
-/* フォントを指定したいところで */
+/* ==========================================
+   全体
+========================================== */
 
-logo img{
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover; /* 画像のトリミング */
-}
 
-logotohome img{
-    border-radius: 70%;
-    width: 70px;
-    height: 70px;
-    object-fit: cover; /* 画像のトリミング */
+/* すべての要素の余白をリセット */
+
+* {
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
 }
 
 
+/* ページ全体 */
 
-/* ========== common ========== */
-html, body {
-	font-size: 16px;
-	font-family: sans-serif;
-	color: #393939;
-    margin-left: 15px;
-    margin-bottom: 40px;
-	background: #efefef;
-}
-h1{
-    text-indent: 0em;
-}
-h2{
-    margin-left: 1em;
-    margin-top: 1em;
-}
-h3{
-    margin-left: 2em;
-}
-div{
-    margin-top: 1em;
-    margin-left: 3em;
-}
-p{
-    margin-left: 3em;
-}
-span.blackback{
-    text-indent: 3em;
-    background: #393939;
-    color: #efefef;
+body {
+
+    min-height: 100vh;
+
+
+    /* 背景 */
+
+    background:
+
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(70, 60, 180, 0.25),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 5% 90%,
+            rgba(90, 40, 200, 0.25),
+            transparent 30%
+        ),
+
+        #07080d;
+
+
+    color: white;
+
+
+    /* 文字 */
+
+    font-family:
+        "Noto Sans JP",
+        "Yu Gothic",
+        sans-serif;
+
+
+    /* 横スクロールを防ぐ */
+
+    overflow-x: hidden;
 }
 
+
+
+/* ==========================================
+   ヘッダー
+========================================== */
+
+header {
+
+    height: 100px;
+
+
+    display: flex;
+
+    align-items: center;
+
+
+    padding:
+        0 55px;
+
+
+    /* 下の線 */
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.15);
+
+
+    position: relative;
+
+    z-index: 10;
+}
+
+
+
+/* ==========================================
+   ロゴ
+========================================== */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.logo img {
+
+    width: 58px;
+
+    height: 58px;
+
+    object-fit: contain;
+}
+
+
+.logo span {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+
+
+/* ==========================================
+   ナビゲーション
+========================================== */
+
+nav {
+
+    margin-left: auto;
+
+
+    display: flex;
+
+    gap: 45px;
+}
+
+
+nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+
+    position: relative;
+
+
+    transition:
+        0.3s;
+}
+
+
+
+/* ナビゲーションの下線 */
+
+nav a::after {
+
+    content: "";
+
+
+    position: absolute;
+
+
+    left: 0;
+
+    bottom: -10px;
+
+
+    width: 0;
+
+    height: 2px;
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #8d5cff,
+            #4d8cff
+        );
+
+
+    transition:
+        0.3s;
+}
+
+
+
+/* マウスを乗せたとき */
+
+nav a:hover {
+
+    color: #a982ff;
+}
+
+
+nav a:hover::after {
+
+    width: 100%;
+}
+
+
+
+/* ==========================================
+   メイン
+========================================== */
+
+main {
+
+    position: relative;
+
+    z-index: 2;
+
+
+    /* 上からの距離 */
+
+    padding-top: 80px;
+
+
+    /* 左からの距離 */
+
+    padding-left: 7%;
+
+
+    max-width: 900px;
+}
+
+
+
+/* ==========================================
+   YUWA'S PORTFOLIO
+========================================== */
+
+.small-title {
+
+    font-size: 14px;
+
+
+    /* 文字の間隔 */
+
+    letter-spacing: 7px;
+
+
+    color: #b9b9c9;
+
+
+    margin-bottom: 65px;
+
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+
+/* 横線 */
+
+.small-title::after {
+
+    content: "";
+
+
+    width: 170px;
+
+    height: 1px;
+
+
+    background:
+        rgba(255, 255, 255, 0.4);
+
+
+    margin-left: 25px;
+}
+
+
+
+/* ==========================================
+   メインタイトル
+========================================== */
+
+h1 {
+
+    font-size: 78px;
+
+
+    /* 行間 */
+
+    line-height: 1.05;
+
+
+    font-weight: 800;
+
+
+    /* 文字間隔 */
+
+    letter-spacing: -4px;
+
+
+    margin-bottom: 35px;
+
+
+    /*
+    「ポートフォリオ一覧」が
+    途中で改行されないようにする
+    */
+
+    white-space: nowrap;
+}
+
+
+
+/* ==========================================
+   「ポートフォリオ一覧」
+========================================== */
+
+h1 span {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffffff 10%,
+            #e8dcff 35%,
+            #a35cff 70%,
+            #4f8cff 100%
+        );
+
+
+    /* グラデーションを文字に適用 */
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+
+    color: transparent;
+}
+
+
+
+/* ==========================================
+   説明文
+========================================== */
+
+.description {
+
+    color: #c0c0ca;
+
+
+    font-size: 15px;
+
+
+    line-height: 2;
+
+
+    margin-bottom: 55px;
+}
+
+
+
+/* ==========================================
+   ポートフォリオ一覧
+========================================== */
+
+.portfolio-list {
+
+    width: 705px;
+
+
+    /* 画面が狭い場合 */
+
+    max-width: 90vw;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    gap: 17px;
+}
+
+
+
+/* ==========================================
+   ポートフォリオカード
+========================================== */
+
+.portfolio-item {
+
+    height: 87px;
+
+
+    padding:
+        0 28px;
+
+
+    /* 枠線 */
+
+    border:
+        1px solid rgba(255, 255, 255, 0.35);
+
+
+    /* 角を丸くする */
+
+    border-radius: 13px;
+
+
+    /* 背景 */
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+
+    /* ガラスっぽくする */
+
+    backdrop-filter: blur(12px);
+
+
+    /* 横並び */
+
+    display: flex;
+
+    align-items: center;
+
+
+    /* 文字 */
+
+    color: white;
+
+    text-decoration: none;
+
+
+    position: relative;
+
+
+    transition:
+
+        transform 0.3s ease,
+
+        border-color 0.3s ease,
+
+        background 0.3s ease,
+
+        box-shadow 0.3s ease;
+}
+
+
+
+/* ==========================================
+   番号
+========================================== */
+
+.number {
+
+    color: #858593;
+
+
+    font-size: 14px;
+
+
+    letter-spacing: 2px;
+
+
+    width: 55px;
+
+
+    margin-right: 20px;
+
+
+    /* 右側の線 */
+
+    border-right:
+        1px solid rgba(255, 255, 255, 0.25);
+
+
+    height: 35px;
+
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+
+/* ==========================================
+   作品名
+========================================== */
+
+.portfolio-item strong {
+
+    font-size: 17px;
+
+
+    font-weight: 500;
+
+
+    letter-spacing: 1px;
+}
+
+
+
+/* ==========================================
+   矢印
+========================================== */
+
+.arrow {
+
+    margin-left: auto;
+
+
+    font-size: 28px;
+
+
+    color: #9c64ff;
+
+
+    transition:
+        0.3s;
+}
+
+
+
+/* ==========================================
+   カードにマウスを乗せたとき
+========================================== */
+
+.portfolio-item:hover {
+
+    /* 少し右に動く */
+
+    transform:
+        translateX(10px);
+
+
+    /* 枠線を紫にする */
+
+    border-color:
+        #985cff;
+
+
+    /* 背景 */
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(130, 70, 255, 0.12),
+            rgba(60, 100, 255, 0.04)
+        );
+
+
+    /* 光 */
+
+    box-shadow:
+
+        0 0 35px
+        rgba(120, 70, 255, 0.15);
+}
+
+
+
+/* 矢印も動く */
+
+.portfolio-item:hover .arrow {
+
+    transform:
+        translateX(8px);
+
+
+    color: white;
+}
+
+
+
+/* ==========================================
+   背景の巨大なX
+========================================== */
+
+.big-x {
+
+    /*
+    fixedではなくabsolute
+
+    ↓
+
+    画面に固定されない
+
+    ↓
+
+    スクロールすると
+    ページと一緒に動く
+    */
+
+    position: absolute;
+
+
+
+    /* 右側 */
+
+    right: 3vw;
+
+
+
+    /*
+    Xを上げる
+
+    前より下に行きすぎないように
+    230pxに変更
+    */
+
+    top: 230px;
+
+
+
+    /* Xの大きさ */
+
+    font-size: 520px;
+
+
+    font-weight: 900;
+
+
+    line-height: 1;
+
+
+
+    /*
+    Xの中身を透明にする
+    */
+
+    color: transparent;
+
+
+
+    /*
+    Xの輪郭
+
+    以前より少し濃くしている
+    */
+
+    -webkit-text-stroke:
+        3px rgba(110, 80, 255, 0.35);
+
+
+
+    /*
+    Xの周りを少し光らせる
+    */
+
+    text-shadow:
+        0 0 30px
+        rgba(100, 70, 255, 0.15);
+
+
+
+    /*
+    少し斜めにする
+    */
+
+    transform:
+        rotate(-8deg);
+
+
+
+    /*
+    背景なので
+    文字やカードより後ろ
+    */
+
+    z-index: 0;
+
+
+
+    /*
+    Xがクリックの邪魔をしない
+    */
+
+    pointer-events: none;
+}
+
+
+
+/* ==========================================
+   スマートフォン
+========================================== */
+
+@media (max-width: 700px) {
+
+
+    /* ヘッダー */
+
+    header {
+
+        height: 80px;
+
+        padding:
+            0 25px;
+    }
+
+
+
+    /* ロゴ */
+
+    .logo img {
+
+        width: 45px;
+
+        height: 45px;
+    }
+
+
+    .logo span {
+
+        font-size: 22px;
+    }
+
+
+
+    /* ナビゲーションを隠す */
+
+    nav {
+
+        display: none;
+    }
+
+
+
+    /* メイン */
+
+    main {
+
+        padding:
+            60px 25px;
+    }
+
+
+
+    /* 小さいタイトル */
+
+    .small-title {
+
+        font-size: 11px;
+
+        letter-spacing: 5px;
+
+        margin-bottom: 45px;
+    }
+
+
+    .small-title::after {
+
+        width: 70px;
+    }
+
+
+
+    /* メインタイトル */
+
+    h1 {
+
+        font-size: 48px;
+
+        letter-spacing: -2px;
+
+
+        /*
+        スマホでは
+        画面幅に合わせて改行可能
+        */
+
+        white-space: normal;
+    }
+
+
+
+    /* 説明 */
+
+    .description {
+
+        font-size: 13px;
+    }
+
+
+
+    /* 一覧 */
+
+    .portfolio-list {
+
+        width: 100%;
+    }
+
+
+
+    /* カード */
+
+    .portfolio-item {
+
+        height: 75px;
+
+        padding:
+            0 20px;
+    }
+
+
+
+    /* カードの文字 */
+
+    .portfolio-item strong {
+
+        font-size: 13px;
+    }
+
+
+
+    /* スマホのX */
+
+    .big-x {
+
+        font-size: 400px;
+
+        right: -100px;
+
+        top: 450px;
+    }
+
+}
+/* ==========================================
+   デザイン演習ページ
+   2階層目
+========================================== */
+
+
+/* ==========================================
+   ページ全体
+========================================== */
+
+.page-bg {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -3;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(75, 55, 180, 0.18),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(90, 50, 180, 0.15),
+            transparent 45%
+        ),
+        #08090d;
+
+}
+
+
+
+/* ==========================================
+   背景のX
+========================================== */
+
+.big-x {
+
+    position: fixed;
+
+    right: -80px;
+
+    bottom: -250px;
+
+    z-index: -1;
+
+    font-size: 600px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: rgba(20, 15, 60, 0.25);
+
+    -webkit-text-stroke:
+        3px rgba(100, 70, 255, 0.35);
+
+    text-shadow:
+        0 0 40px rgba(90, 60, 255, 0.15);
+
+    pointer-events: none;
+
+}
+
+
+
+/* ==========================================
+   ヘッダー
+========================================== */
+
+.sub-header {
+
+    width: 100%;
+
+    height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding-left: 7%;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    z-index: 5;
+
+}
+
+
+
+/* ==========================================
+   XBPロゴ
+========================================== */
+
+.home-logo {
+
+    display: block;
+
+    width: 58px;
+
+    height: 58px;
+
+}
+
+
+
+.home-logo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+}
+
+
+
+/* ==========================================
+   YUWA'S PORTFOLIO
+========================================== */
+
+.top-title {
+
+    margin-left: 35px;
+
+    font-size: 13px;
+
+    letter-spacing: 7px;
+
+    color: #bfc0d0;
+
+    white-space: nowrap;
+
+}
+
+
+
+/* 横線 */
+
+.header-line {
+
+    width: 190px;
+
+    height: 1px;
+
+    margin-left: 35px;
+
+    background:
+        rgba(255,255,255,0.3);
+
+}
+
+
+
+/* ==========================================
+   メイン
+========================================== */
+
+.sub-main {
+
+    width: 900px;
+
+    max-width: 82vw;
+
+    margin-left: 7%;
+
+    padding-top: 45px;
+
+    padding-bottom: 120px;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+
+/* ==========================================
+   小さいタイトル
+========================================== */
+
+.sub-small-title {
+
+    font-size: 13px;
+
+    letter-spacing: 6px;
+
+    color: #9d9eaf;
+
+    margin-bottom: 18px;
+
+}
+
+
+
+/* ==========================================
+   ページタイトル
+========================================== */
+
+.sub-page-title {
+
+    margin: 0;
+
+    font-size: 65px;
+
+    line-height: 1.1;
+
+    letter-spacing: -2px;
+
+    font-weight: 800;
+
+    color: white;
+
+}
+
+
+
+/* Ⅰ・Ⅱ */
+
+.sub-page-title span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #c38cff 0%,
+            #8c6cff 50%,
+            #5e8fff 100%
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+
+/* ==========================================
+   説明
+========================================== */
+
+.sub-description {
+
+    margin-top: 25px;
+
+    margin-bottom: 65px;
+
+    max-width: 720px;
+
+    color: #b7b8c5;
+
+    font-size: 14px;
+
+    line-height: 2;
+
+}
+
+
+
+/* ==========================================
+   セクション
+========================================== */
+
+.portfolio-section {
+
+    width: 800px;
+
+    max-width: 100%;
+
+    margin-bottom: 65px;
+
+}
+
+
+
+/* ==========================================
+   セクションタイトル
+========================================== */
+
+.section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* 01 / 02 */
+
+.section-number {
+
+    width: 55px;
+
+    min-width: 55px;
+
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    color: #858694;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    border-right:
+        1px solid
+        rgba(255,255,255,0.25);
+
+}
+
+
+
+/* タイトル */
+
+.section-heading h2 {
+
+    margin: 0 0 0 20px;
+
+    font-size: 24px;
+
+    font-weight: 600;
+
+    color: white;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+/* ==========================================
+   カード一覧
+========================================== */
+
+.note-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    padding-left: 75px;
+
+}
+
+
+
+/* ==========================================
+   カード
+========================================== */
+
+.note-card {
+
+    width: 100%;
+
+    min-height: 72px;
+
+    box-sizing: border-box;
+
+    padding:
+        0 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    text-decoration: none;
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+
+/* ==========================================
+   番号
+========================================== */
+
+.note-number {
+
+    width: 45px;
+
+    min-width: 45px;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    color: #777887;
+
+}
+
+
+
+/* ==========================================
+   タイトル
+========================================== */
+
+.note-title {
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    letter-spacing: 1px;
+
+    color: #f3f3f7;
+
+}
+
+
+
+/* ==========================================
+   矢印
+========================================== */
+
+.note-arrow {
+
+    margin-left: auto;
+
+    font-size: 25px;
+
+    color: #9a62ff;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+
+}
+
+
+
+/* ==========================================
+   ホバー
+========================================== */
+
+.note-card:hover {
+
+    transform:
+        translateX(8px);
+
+    border-color:
+        rgba(145,95,255,0.8);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(120,70,255,0.12),
+            rgba(80,100,255,0.04)
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(120,80,255,0.12);
+
+}
+
+
+
+.note-card:hover .note-arrow {
+
+    transform:
+        translateX(8px);
+
+    color: white;
+
+}
+
+
+
+/* ==========================================
+   PORTFOLIOへ戻る
+========================================== */
+
+.back-home {
+
+    display: block;
+
+    width: fit-content;
+
+    margin-left: 7%;
+
+    margin-bottom: 70px;
+
+    color: #999aaa;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+
+.back-home:hover {
+
+    color: white;
+
+    transform:
+        translateX(5px);
+
+}
+
+
+
+/* ==========================================
+   スマートフォン
+========================================== */
+
+@media (max-width: 700px) {
+
+
+    .sub-header {
+
+        height: 80px;
+
+        padding-left: 25px;
+
+    }
+
+
+    .home-logo {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+
+    .top-title {
+
+        margin-left: 20px;
+
+        font-size: 10px;
+
+        letter-spacing: 4px;
+
+    }
+
+
+    .header-line {
+
+        display: none;
+
+    }
+
+
+    .sub-main {
+
+        max-width: none;
+
+        width: auto;
+
+        margin-left: 25px;
+
+        margin-right: 25px;
+
+        padding-top: 35px;
+
+    }
+
+
+    .sub-page-title {
+
+        font-size: 45px;
+
+        letter-spacing: -1px;
+
+    }
+
+
+    .sub-description {
+
+        font-size: 12px;
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .portfolio-section {
+
+        width: 100%;
+
+    }
+
+
+    .section-heading h2 {
+
+        font-size: 19px;
+
+    }
+
+
+    .note-list {
+
+        padding-left: 0;
+
+    }
+
+
+    .note-card {
+
+        min-height: 62px;
+
+        padding:
+            0 18px;
+
+    }
+
+
+    .note-title {
+
+        font-size: 13px;
+
+    }
+
+
+    .big-x {
+
+        font-size: 350px;
+
+        right: -120px;
+
+        bottom: -100px;
+
+    }
+
+
+    .back-home {
+
+        margin-left: 25px;
+
+    }
+
+}
