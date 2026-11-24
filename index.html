@@ -3,524 +3,418 @@
 <html lang="ja">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>YUWA'S PORTFOLIO</title>
 
-    <title>XBP_portfolio</title>
-
-    <link rel="stylesheet" href="./css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/xbp.ico">
 </head>
-
 
 <body class="portfolio-home">
 
-
-    <!-- =================================
-         動く背景
-    ================================== -->
-
+    <!-- 背景 -->
     <div class="aurora aurora-1"></div>
-
     <div class="aurora aurora-2"></div>
-
     <div class="aurora aurora-3"></div>
-
     <div class="background-grid"></div>
-
     <div class="mouse-light"></div>
+    <canvas id="particles"></canvas>
+    <div class="big-x">X</div>
 
-    <canvas id="particles" aria-hidden="true"></canvas>
-
-
-    <!-- =================================
-         ヘッダー
-    ================================== -->
-
+    <!-- ヘッダー -->
     <header>
 
         <div class="logo">
-
-            <a href="./index.html">
-
-                <img src="./images/0_XBlogo.png" alt="XBP">
-
-            </a>
-
+            <img src="images/0_XBlogo.png" alt="XBP">
             <span>XBP</span>
-
         </div>
 
-
         <nav>
-
-            <a href="./index.html">HOME</a>
-
-            <a href="#">ABOUT</a>
-
-            <a href="./index.html">PORTFOLIO</a>
-
+            <a href="de12/index.html">DESIGN</a>
+            <a href="digi_fab/index.html">FABRICATION</a>
         </nav>
 
     </header>
 
-
-    <!-- =================================
-         メイン
-    ================================== -->
-
+    <!-- メイン -->
     <main>
 
         <p class="small-title">
-
             YUWA'S PORTFOLIO
-
         </p>
-
 
         <h1>
-
-            yuuwaの<br>
-
-            <span>ポートフォリオ一覧</span>
-
+            ポートフォリオ<span>一覧</span>
         </h1>
 
-
         <p class="description">
-
-            デザイン演習Ⅰ・Ⅱとデジタルファブリケーションの作品をまとめています。
-
+            エクス・ビジネスプログラムで取り組んだ<br>
+            制作物や演習ノートをまとめています。
         </p>
-
-
-        <!-- ポートフォリオ一覧 -->
 
         <div class="portfolio-list">
 
-
-            <!-- デザイン演習 -->
-
-            <a href="./de12/index.html"
-               class="portfolio-item">
-
+            <a href="de12/index.html" class="portfolio-item">
                 <span class="number">01</span>
-
                 <strong>デザイン演習Ⅰ・Ⅱ</strong>
-
                 <span class="arrow">→</span>
-
             </a>
 
-
-            <!-- デジタルファブリケーション -->
-
-            <a href="./digi_fab/index.html"
-               class="portfolio-item">
-
+            <a href="digi_fab/index.html" class="portfolio-item">
                 <span class="number">02</span>
-
                 <strong>デジタルファブリケーション</strong>
-
                 <span class="arrow">→</span>
-
             </a>
 
         </div>
 
     </main>
 
+    <!-- 隠しメニュー -->
+    <dialog id="secret-panel">
 
-    <!-- =================================
-         背景の巨大なX
-    ================================== -->
+        <p class="secret-access">ACCESS GRANTED</p>
 
-    <div class="big-x" aria-hidden="true">
+        <h2 class="secret-heading">SECRET MODE</h2>
 
-        X
+        <p class="secret-description">
+            隠しコマンドの入力に成功しました。<br>
+            カラーテーマを選択してください。
+        </p>
 
-    </div>
+        <div class="secret-colors">
 
+            <button class="secret-color-button" data-color="original">
+                <span style="--swatch:#a35cff"></span>
+                ORIGINAL
+            </button>
 
-    <!-- =================================
-         JavaScript
-    ================================== -->
+            <button class="secret-color-button" data-color="ocean">
+                <span style="--swatch:#30b8ff"></span>
+                OCEAN
+            </button>
+
+            <button class="secret-color-button" data-color="crimson">
+                <span style="--swatch:#ff426b"></span>
+                CRIMSON
+            </button>
+
+            <button class="secret-color-button" data-color="gold">
+                <span style="--swatch:#d7a84b"></span>
+                GOLD
+            </button>
+
+            <button class="secret-color-button" data-color="emerald">
+                <span style="--swatch:#25cf91"></span>
+                EMERALD
+            </button>
+
+        </div>
+
+        <button id="secret-close">RETURN</button>
+
+    </dialog>
 
     <script>
 
+        // カラーテーマの復元
 
-        // アニメーション設定
+        const body = document.body;
+        const panel = document.getElementById("secret-panel");
 
-        const reducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        );
+        const validThemes = [
+            "original", "ocean", "crimson", "gold", "emerald"
+        ];
+
+        function restoreTheme() {
+            try {
+                const saved = localStorage.getItem("xbp-secret-theme");
+
+                body.dataset.theme = validThemes.includes(saved)
+                    ? saved
+                    : "original";
+            } catch {
+                body.dataset.theme = "original";
+            }
+        }
+
+        restoreTheme();
 
 
-        // =================================
-        // マウスに追従する光
-        // =================================
+        // 隠しコマンド
 
-        const mouseLight =
-            document.querySelector(".mouse-light");
+        const command = [
+            "ArrowUp",
+            "ArrowUp",
+            "ArrowDown",
+            "ArrowDown",
+            "ArrowLeft",
+            "ArrowRight",
+            "ArrowLeft",
+            "ArrowRight",
+            "b",
+            "a"
+        ];
 
-        document.addEventListener("pointermove", function(event) {
+        let keys = [];
 
-            if (
-                reducedMotion.matches ||
-                event.pointerType !== "mouse"
-            ) {
+        document.addEventListener("keydown", function(event) {
+
+            if (panel.open || event.repeat ||
+                event.ctrlKey || event.altKey || event.metaKey) {
                 return;
             }
 
-            mouseLight.style.left =
-                event.clientX + "px";
+            keys.push(event.key.toLowerCase());
 
-            mouseLight.style.top =
-                event.clientY + "px";
+            keys = keys.slice(-command.length);
 
-            mouseLight.style.opacity = "1";
+            if (
+                keys.join(",") ===
+                command.join(",").toLowerCase()
+            ) {
+
+                keys = [];
+
+                panel.showModal();
+
+            }
 
         });
 
 
-        document.documentElement.addEventListener(
-            "pointerleave",
-            function() {
+        // カラー変更
 
-                mouseLight.style.opacity = "0";
+        document.querySelectorAll(".secret-color-button")
+            .forEach(function(button) {
 
+                button.addEventListener("click", function() {
+
+                    const theme = button.dataset.color;
+
+                    body.dataset.theme = theme;
+
+                    try {
+                        localStorage.setItem(
+                            "xbp-secret-theme",
+                            theme
+                        );
+                    } catch {}
+
+                    panel.close();
+
+                    keys = [];
+
+                });
+
+            });
+
+
+        // メニューを閉じる
+
+        document.getElementById("secret-close")
+            .addEventListener("click", function() {
+
+                panel.close();
+
+                keys = [];
+
+            });
+
+        panel.addEventListener("close", function() {
+            keys = [];
+        });
+
+
+        // マウス追従ライト
+
+        const light = document.querySelector(".mouse-light");
+
+        document.addEventListener("mousemove", function(event) {
+
+            light.style.left = event.clientX + "px";
+            light.style.top = event.clientY + "px";
+            light.style.opacity = "1";
+
+        });
+
+        document.documentElement.addEventListener("mouseleave", function() {
+            light.style.opacity = "0";
+        });
+
+
+        // カードの発光
+
+        document.querySelectorAll(".portfolio-item, .note-card")
+            .forEach(function(card) {
+
+                card.addEventListener("mousemove", function(event) {
+
+                    const rect = card.getBoundingClientRect();
+
+                    card.style.setProperty(
+                        "--mouse-x",
+                        event.clientX - rect.left + "px"
+                    );
+
+                    card.style.setProperty(
+                        "--mouse-y",
+                        event.clientY - rect.top + "px"
+                    );
+
+                });
+
+            });
+
+
+        // クリック時の波紋
+
+        document.addEventListener("click", function(event) {
+
+            if (panel.open || panel.contains(event.target)) {
+                return;
             }
-        );
+
+            const ripple = document.createElement("div");
+
+            ripple.className = "secret-ripple";
+
+            ripple.style.left = event.clientX + "px";
+            ripple.style.top = event.clientY + "px";
+
+            body.appendChild(ripple);
+
+            setTimeout(function() {
+                ripple.remove();
+            }, 800);
+
+        });
 
 
-        // =================================
-        // 光の粒子
-        // =================================
+        // 背景の光の粒子
 
-        const canvas =
-            document.getElementById("particles");
-
+        const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d");
 
         let particles = [];
 
-        let animationId = null;
-
-
-        // 画面サイズ
-
         function resizeCanvas() {
 
             canvas.width = window.innerWidth;
-
             canvas.height = window.innerHeight;
 
-        }
+            particles = [];
 
-        resizeCanvas();
+            const count = window.innerWidth < 700 ? 30 : 90;
 
-        window.addEventListener(
-            "resize",
-            resizeCanvas
-        );
+            for (let i = 0; i < count; i++) {
 
-
-        // 粒子の数
-
-        const particleCount =
-            window.innerWidth < 700 ? 30 : 100;
-
-
-        // 粒子を作成
-
-        for (let i = 0; i < particleCount; i++) {
-
-            particles.push({
-
-                x:
-                    Math.random() * canvas.width,
-
-                y:
-                    Math.random() * canvas.height,
-
-                size:
-                    Math.random() * 2 + 0.3,
-
-                speedX:
-                    (Math.random() - 0.5) * 0.45,
-
-                speedY:
-                    (Math.random() - 0.5) * 0.45,
-
-                opacity:
-                    Math.random() * 0.6 + 0.1,
-
-                phase:
-                    Math.random() * Math.PI * 2,
-
-                color:
-                    Math.random() > 0.5
-                        ? "160, 110, 255"
-                        : "90, 150, 255"
-
-            });
-
-        }
-
-
-        // 粒子を動かす
-
-        function animateParticles() {
-
-            ctx.clearRect(
-                0, 0,
-                canvas.width,
-                canvas.height
-            );
-
-            if (reducedMotion.matches) {
-
-                animationId = null;
-
-                return;
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.3,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    opacity: Math.random() * 0.6 + 0.1
+                });
 
             }
 
-            particles.forEach(function(particle) {
+        }
 
-                particle.x += particle.speedX;
+        function animateParticles() {
 
-                particle.y += particle.speedY;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                particle.phase += 0.015;
+            const color = getComputedStyle(body)
+                .getPropertyValue("--ar").trim();
 
+            particles.forEach(function(p) {
 
-                // 画面の端まで移動した場合
+                p.x = (p.x + p.vx + canvas.width) % canvas.width;
 
-                if (particle.x > canvas.width) {
-
-                    particle.x = 0;
-
-                }
-
-                if (particle.x < 0) {
-
-                    particle.x = canvas.width;
-
-                }
-
-                if (particle.y > canvas.height) {
-
-                    particle.y = 0;
-
-                }
-
-                if (particle.y < 0) {
-
-                    particle.y = canvas.height;
-
-                }
-
-
-                // 粒子の明るさ
-
-                const brightness =
-                    particle.opacity *
-                    (0.65 + Math.sin(particle.phase) * 0.35);
-
-
-                // 粒子を描画
+                p.y = (p.y + p.vy + canvas.height) % canvas.height;
 
                 ctx.beginPath();
 
-                ctx.arc(
-                    particle.x,
-                    particle.y,
-                    particle.size,
-                    0,
-                    Math.PI * 2
-                );
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
 
-                ctx.fillStyle =
-                    "rgba(" +
-                    particle.color +
-                    "," +
-                    brightness +
-                    ")";
+                ctx.fillStyle = `rgba(${color}, ${p.opacity})`;
 
-                ctx.shadowBlur = 10;
-
-                ctx.shadowColor =
-                    "rgb(" + particle.color + ")";
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = `rgb(${color})`;
 
                 ctx.fill();
 
             });
 
-            animationId =
-                requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animateParticles);
 
         }
 
+        resizeCanvas();
 
-        if (ctx && !reducedMotion.matches) {
-
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
             animateParticles();
-
         }
 
+        window.addEventListener("resize", resizeCanvas);
 
-        // アニメーション設定の変更
 
-        reducedMotion.addEventListener("change", function() {
+        // ページ移動時のアニメーション
 
-            if (!ctx) {
-                return;
-            }
+        document.querySelectorAll("a[href]").forEach(function(link) {
 
-            if (reducedMotion.matches) {
+            link.addEventListener("click", function(event) {
 
-                cancelAnimationFrame(animationId);
+                if (event.ctrlKey || event.metaKey ||
+                    event.shiftKey || event.altKey ||
+                    link.target === "_blank" ||
+                    link.origin !== location.origin ||
+                    matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    return;
+                }
 
-                animationId = null;
+                event.preventDefault();
 
-                ctx.clearRect(
-                    0, 0,
-                    canvas.width,
-                    canvas.height
-                );
+                body.classList.add("page-exit");
 
-            } else if (animationId === null) {
+                setTimeout(function() {
+                    location.href = link.href;
+                }, 350);
 
-                animateParticles();
-
-            }
+            });
 
         });
 
 
-        // =================================
-        // カード内のマウス追従エフェクト
-        // =================================
-
-        document.querySelectorAll(".portfolio-item").forEach(
-            function(card) {
-
-                card.addEventListener("pointermove", function(event) {
-
-                    const rect =
-                        card.getBoundingClientRect();
-
-                    const x =
-                        event.clientX - rect.left;
-
-                    const y =
-                        event.clientY - rect.top;
-
-                    card.style.setProperty(
-                        "--mouse-x",
-                        x + "px"
-                    );
-
-                    card.style.setProperty(
-                        "--mouse-y",
-                        y + "px"
-                    );
-
-                });
-
-            }
-        );
-
-
-        // =================================
-        // ページ切り替え
-        // =================================
-
-        let isLeaving = false;
-
-        document.querySelectorAll("a[href]").forEach(
-            function(link) {
-
-                link.addEventListener("click", function(event) {
-
-                    const destination =
-                        link.getAttribute("href");
-
-                    if (
-
-                        event.defaultPrevented ||
-
-                        event.button !== 0 ||
-
-                        !destination ||
-
-                        destination.startsWith("#") ||
-
-                        link.origin !== window.location.origin ||
-
-                        link.hasAttribute("download") ||
-
-                        (link.target && link.target !== "_self") ||
-
-                        event.ctrlKey ||
-
-                        event.shiftKey ||
-
-                        event.altKey ||
-
-                        event.metaKey ||
-
-                        reducedMotion.matches
-
-                    ) {
-
-                        return;
-
-                    }
-
-                    event.preventDefault();
-
-                    if (isLeaving) {
-
-                        return;
-
-                    }
-
-                    isLeaving = true;
-
-                    document.body.classList.add(
-                        "page-exit"
-                    );
-
-                    setTimeout(function() {
-
-                        window.location.href = link.href;
-
-                    }, 350);
-
-                });
-
-            }
-        );
-
-
-        // 戻るボタンへの対応
+        // ページ間でカラーを共有
 
         window.addEventListener("pageshow", function() {
 
-            document.body.classList.remove("page-exit");
+            body.classList.remove("page-exit");
 
-            isLeaving = false;
+            restoreTheme();
+
+            keys = [];
+
+            if (panel.open) {
+                panel.close();
+            }
 
         });
 
+        window.addEventListener("storage", function(event) {
+
+            if (event.key === "xbp-secret-theme") {
+                restoreTheme();
+            }
+
+        });
 
     </script>
-
 
 </body>
 
