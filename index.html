@@ -3,6 +3,7 @@
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,11 +11,13 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/xbp.ico">
+
 </head>
 
 <body class="portfolio-home">
 
     <!-- 背景 -->
+
     <div class="aurora aurora-1"></div>
     <div class="aurora aurora-2"></div>
     <div class="aurora aurora-3"></div>
@@ -23,22 +26,32 @@
     <canvas id="particles"></canvas>
     <div class="big-x">X</div>
 
+
     <!-- ヘッダー -->
+
     <header>
 
-        <div class="logo">
+        <div class="logo" id="secret-trigger">
+
             <img src="images/0_XBlogo.png" alt="XBP">
+
             <span>XBP</span>
+
         </div>
 
         <nav>
+
             <a href="de12/index.html">DESIGN</a>
+
             <a href="digi_fab/index.html">FABRICATION</a>
+
         </nav>
 
     </header>
 
+
     <!-- メイン -->
+
     <main>
 
         <p class="small-title">
@@ -50,65 +63,94 @@
         </h1>
 
         <p class="description">
+
             エクス・ビジネスプログラムで取り組んだ<br>
             制作物や演習ノートをまとめています。
+
         </p>
 
         <div class="portfolio-list">
 
             <a href="de12/index.html" class="portfolio-item">
+
                 <span class="number">01</span>
                 <strong>デザイン演習Ⅰ・Ⅱ</strong>
                 <span class="arrow">→</span>
+
             </a>
 
             <a href="digi_fab/index.html" class="portfolio-item">
+
                 <span class="number">02</span>
                 <strong>デジタルファブリケーション</strong>
                 <span class="arrow">→</span>
+
             </a>
 
         </div>
 
     </main>
 
-    <!-- 隠しメニュー -->
-    <dialog id="secret-panel">
 
-        <p class="secret-access">ACCESS GRANTED</p>
+    <!-- 隠しカラーメニュー -->
 
-        <h2 class="secret-heading">SECRET MODE</h2>
+    <dialog id="secret-panel" aria-labelledby="secret-title">
+
+        <p class="secret-access">
+            ACCESS GRANTED
+        </p>
+
+        <h2 class="secret-heading" id="secret-title">
+            SECRET MODE
+        </h2>
 
         <p class="secret-description">
+
             隠しコマンドの入力に成功しました。<br>
             カラーテーマを選択してください。
+
         </p>
 
         <div class="secret-colors">
 
             <button class="secret-color-button" data-color="original">
+
                 <span style="--swatch:#a35cff"></span>
+
                 ORIGINAL
+
             </button>
 
             <button class="secret-color-button" data-color="ocean">
+
                 <span style="--swatch:#30b8ff"></span>
+
                 OCEAN
+
             </button>
 
             <button class="secret-color-button" data-color="crimson">
+
                 <span style="--swatch:#ff426b"></span>
+
                 CRIMSON
+
             </button>
 
             <button class="secret-color-button" data-color="gold">
+
                 <span style="--swatch:#d7a84b"></span>
+
                 GOLD
+
             </button>
 
             <button class="secret-color-button" data-color="emerald">
+
                 <span style="--swatch:#25cf91"></span>
+
                 EMERALD
+
             </button>
 
         </div>
@@ -117,140 +159,277 @@
 
     </dialog>
 
+
     <script>
 
-        // カラーテーマの復元
+        // ==========================================
+        // 基本設定
+        // ==========================================
 
         const body = document.body;
+
         const panel = document.getElementById("secret-panel");
 
+        const reducedMotion = matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        );
+
         const validThemes = [
-            "original", "ocean", "crimson", "gold", "emerald"
+            "original",
+            "ocean",
+            "crimson",
+            "gold",
+            "emerald"
         ];
 
+
+        // ==========================================
+        // カラーテーマの復元
+        // ==========================================
+
         function restoreTheme() {
+
             try {
-                const saved = localStorage.getItem("xbp-secret-theme");
+
+                const saved = localStorage.getItem(
+                    "xbp-secret-theme"
+                );
 
                 body.dataset.theme = validThemes.includes(saved)
                     ? saved
                     : "original";
+
             } catch {
-                body.dataset.theme = "original";
+
+                body.dataset.theme ||= "original";
+
             }
+
         }
 
         restoreTheme();
 
 
-        // 隠しコマンド
-
-        const command = [
-            "ArrowUp",
-            "ArrowUp",
-            "ArrowDown",
-            "ArrowDown",
-            "ArrowLeft",
-            "ArrowRight",
-            "ArrowLeft",
-            "ArrowRight",
-            "b",
-            "a"
-        ];
+        // ==========================================
+        // 隠しメニューの解放
+        // ==========================================
 
         let keys = [];
 
+        let tapCount = 0;
+
+        let lastTap = 0;
+
+        function openSecret() {
+
+            keys = [];
+
+            tapCount = 0;
+
+            lastTap = 0;
+
+            if (!panel.open) {
+
+                panel.showModal();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // PC版の隠しコマンド
+        // ↑ ↑ ↓ ↓ ← → ← → B A
+        // ==========================================
+
+        const command = [
+
+            "arrowup",
+            "arrowup",
+            "arrowdown",
+            "arrowdown",
+            "arrowleft",
+            "arrowright",
+            "arrowleft",
+            "arrowright",
+            "b",
+            "a"
+
+        ];
+
         document.addEventListener("keydown", function(event) {
 
-            if (panel.open || event.repeat ||
-                event.ctrlKey || event.altKey || event.metaKey) {
+            if (
+                panel.open ||
+                event.repeat ||
+                event.ctrlKey ||
+                event.altKey ||
+                event.metaKey ||
+                event.isComposing
+            ) {
+
                 return;
+
             }
 
             keys.push(event.key.toLowerCase());
 
             keys = keys.slice(-command.length);
 
-            if (
-                keys.join(",") ===
-                command.join(",").toLowerCase()
-            ) {
+            if (keys.join(",") === command.join(",")) {
 
-                keys = [];
+                event.preventDefault();
 
-                panel.showModal();
+                openSecret();
 
             }
 
         });
 
 
-        // カラー変更
+        // ==========================================
+        // スマホ版の隠しコマンド
+        // XBPロゴを7回連続タップ
+        // ==========================================
+
+        const secretTrigger = document.getElementById(
+            "secret-trigger"
+        );
+
+        secretTrigger.style.touchAction = "manipulation";
+
+        secretTrigger.style.userSelect = "none";
+
+        secretTrigger.addEventListener("pointerup", function(event) {
+
+            if (
+                panel.open ||
+                event.pointerType !== "touch" ||
+                !event.isPrimary
+            ) {
+
+                return;
+
+            }
+
+            const now = Date.now();
+
+            if (now - lastTap > 700) {
+
+                tapCount = 0;
+
+            }
+
+            tapCount++;
+
+            lastTap = now;
+
+            if (tapCount >= 7) {
+
+                openSecret();
+
+            }
+
+        });
+
+
+        // ==========================================
+        // カラーテーマ変更
+        // ==========================================
 
         document.querySelectorAll(".secret-color-button")
             .forEach(function(button) {
 
                 button.addEventListener("click", function() {
 
+                    if (!panel.open) return;
+
                     const theme = button.dataset.color;
 
                     body.dataset.theme = theme;
 
                     try {
+
                         localStorage.setItem(
                             "xbp-secret-theme",
                             theme
                         );
+
                     } catch {}
 
                     panel.close();
-
-                    keys = [];
 
                 });
 
             });
 
 
-        // メニューを閉じる
+        // ==========================================
+        // 隠しメニューを閉じる
+        // ==========================================
 
         document.getElementById("secret-close")
             .addEventListener("click", function() {
 
                 panel.close();
 
-                keys = [];
-
             });
 
         panel.addEventListener("close", function() {
+
             keys = [];
+
+            tapCount = 0;
+
+            lastTap = 0;
+
         });
 
 
+        // ==========================================
         // マウス追従ライト
+        // ==========================================
 
         const light = document.querySelector(".mouse-light");
 
-        document.addEventListener("mousemove", function(event) {
+        document.addEventListener("pointermove", function(event) {
+
+            if (
+                event.pointerType !== "mouse" ||
+                reducedMotion.matches
+            ) return;
 
             light.style.left = event.clientX + "px";
+
             light.style.top = event.clientY + "px";
+
             light.style.opacity = "1";
 
         });
 
-        document.documentElement.addEventListener("mouseleave", function() {
-            light.style.opacity = "0";
-        });
+        document.documentElement.addEventListener(
+            "pointerleave",
+            function() {
+
+                light.style.opacity = "0";
+
+            }
+        );
 
 
+        // ==========================================
         // カードの発光
+        // ==========================================
 
         document.querySelectorAll(".portfolio-item, .note-card")
             .forEach(function(card) {
 
-                card.addEventListener("mousemove", function(event) {
+                card.addEventListener("pointermove", function(event) {
+
+                    if (
+                        event.pointerType !== "mouse" ||
+                        reducedMotion.matches
+                    ) return;
 
                     const rect = card.getBoundingClientRect();
 
@@ -269,40 +448,54 @@
             });
 
 
+        // ==========================================
         // クリック時の波紋
+        // ==========================================
 
         document.addEventListener("click", function(event) {
 
-            if (panel.open || panel.contains(event.target)) {
-                return;
-            }
+            if (
+                panel.open ||
+                panel.contains(event.target) ||
+                reducedMotion.matches ||
+                !event.detail
+            ) return;
 
             const ripple = document.createElement("div");
 
             ripple.className = "secret-ripple";
 
             ripple.style.left = event.clientX + "px";
+
             ripple.style.top = event.clientY + "px";
 
             body.appendChild(ripple);
 
             setTimeout(function() {
+
                 ripple.remove();
-            }, 800);
+
+            }, 850);
 
         });
 
 
+        // ==========================================
         // 背景の光の粒子
+        // ==========================================
 
         const canvas = document.getElementById("particles");
+
         const ctx = canvas.getContext("2d");
 
         let particles = [];
 
+        let frameId = null;
+
         function resizeCanvas() {
 
             canvas.width = window.innerWidth;
+
             canvas.height = window.innerHeight;
 
             particles = [];
@@ -312,12 +505,19 @@
             for (let i = 0; i < count; i++) {
 
                 particles.push({
+
                     x: Math.random() * canvas.width,
+
                     y: Math.random() * canvas.height,
+
                     size: Math.random() * 2 + 0.3,
+
                     vx: (Math.random() - 0.5) * 0.4,
+
                     vy: (Math.random() - 0.5) * 0.4,
+
                     opacity: Math.random() * 0.6 + 0.1
+
                 });
 
             }
@@ -326,82 +526,147 @@
 
         function animateParticles() {
 
+            frameId = null;
+
+            if (!ctx) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (
+                reducedMotion.matches ||
+                document.hidden
+            ) return;
 
             const color = getComputedStyle(body)
                 .getPropertyValue("--ar").trim();
 
             particles.forEach(function(p) {
 
-                p.x = (p.x + p.vx + canvas.width) % canvas.width;
+                p.x = (
+                    p.x + p.vx + canvas.width
+                ) % canvas.width;
 
-                p.y = (p.y + p.vy + canvas.height) % canvas.height;
+                p.y = (
+                    p.y + p.vy + canvas.height
+                ) % canvas.height;
 
                 ctx.beginPath();
 
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.arc(
+                    p.x,
+                    p.y,
+                    p.size,
+                    0,
+                    Math.PI * 2
+                );
 
                 ctx.fillStyle = `rgba(${color}, ${p.opacity})`;
 
                 ctx.shadowBlur = 8;
+
                 ctx.shadowColor = `rgb(${color})`;
 
                 ctx.fill();
 
             });
 
-            requestAnimationFrame(animateParticles);
+            frameId = requestAnimationFrame(animateParticles);
+
+        }
+
+        function restartParticles() {
+
+            if (frameId !== null) {
+
+                cancelAnimationFrame(frameId);
+
+            }
+
+            animateParticles();
 
         }
 
         resizeCanvas();
 
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            animateParticles();
-        }
+        restartParticles();
 
         window.addEventListener("resize", resizeCanvas);
 
+        document.addEventListener(
+            "visibilitychange",
+            restartParticles
+        );
 
+        reducedMotion.addEventListener(
+            "change",
+            restartParticles
+        );
+
+
+        // ==========================================
         // ページ移動時のアニメーション
+        // ==========================================
 
-        document.querySelectorAll("a[href]").forEach(function(link) {
+        let leaving = false;
 
-            link.addEventListener("click", function(event) {
+        document.querySelectorAll("a[href]")
+            .forEach(function(link) {
 
-                if (event.ctrlKey || event.metaKey ||
-                    event.shiftKey || event.altKey ||
-                    link.target === "_blank" ||
-                    link.origin !== location.origin ||
-                    matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                    return;
-                }
+                link.addEventListener("click", function(event) {
 
-                event.preventDefault();
+                    if (
+                        event.defaultPrevented ||
+                        event.button !== 0 ||
+                        event.ctrlKey ||
+                        event.metaKey ||
+                        event.shiftKey ||
+                        event.altKey ||
+                        link.target === "_blank" ||
+                        link.origin !== location.origin ||
+                        reducedMotion.matches
+                    ) return;
 
-                body.classList.add("page-exit");
+                    event.preventDefault();
 
-                setTimeout(function() {
-                    location.href = link.href;
-                }, 350);
+                    if (leaving) return;
+
+                    leaving = true;
+
+                    body.classList.add("page-exit");
+
+                    setTimeout(function() {
+
+                        location.href = link.href;
+
+                    }, 350);
+
+                });
 
             });
 
-        });
 
-
-        // ページ間でカラーを共有
+        // ==========================================
+        // ページ間のカラー共有
+        // ==========================================
 
         window.addEventListener("pageshow", function() {
 
             body.classList.remove("page-exit");
 
+            leaving = false;
+
             restoreTheme();
 
             keys = [];
 
+            tapCount = 0;
+
+            lastTap = 0;
+
             if (panel.open) {
+
                 panel.close();
+
             }
 
         });
@@ -409,7 +674,9 @@
         window.addEventListener("storage", function(event) {
 
             if (event.key === "xbp-secret-theme") {
+
                 restoreTheme();
+
             }
 
         });
