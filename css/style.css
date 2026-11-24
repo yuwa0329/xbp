@@ -4,68 +4,95 @@
 ========================================== */
 
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
 
+html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+}
 
 body {
-
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
 
     background:
-
         radial-gradient(
             circle at 85% 10%,
             rgba(70, 60, 180, 0.25),
             transparent 35%
         ),
-
         radial-gradient(
             circle at 5% 90%,
             rgba(90, 40, 200, 0.25),
             transparent 30%
         ),
-
         #07080d;
 
     color: white;
 
     font-family:
-
         "Noto Sans JP",
-
         "Yu Gothic",
-
         sans-serif;
 
     overflow-x: hidden;
-
 }
-
 
 .portfolio-home {
-
     position: relative;
-
     isolation: isolate;
-
+    display: block;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     transition: opacity 0.35s ease;
+}
 
+::selection {
+    background: #935cff;
+    color: white;
 }
 
 
-::selection {
+/* ==========================================
+   空白の発生を防ぐ背景設定
+========================================== */
 
-    background: #935cff;
+.portfolio-home .aurora,
+.portfolio-home .background-grid,
+.portfolio-home .mouse-light,
+.portfolio-home #particles,
+.portfolio-home .big-x,
+.portfolio-home .page-bg {
+    position: fixed !important;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+}
 
-    color: white;
+.portfolio-home #particles,
+.portfolio-home .background-grid,
+.portfolio-home .page-bg {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
 
+#particles {
+    display: block;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
 
@@ -74,27 +101,22 @@ body {
 ========================================== */
 
 header {
-
     height: 100px;
 
     display: flex;
-
     align-items: center;
 
     padding: 0 55px;
+    margin-top: 0;
 
     border-bottom:
         1px solid rgba(255, 255, 255, 0.15);
 
     position: relative;
-
     z-index: 10;
-
 }
 
-
 .portfolio-home header {
-
     animation:
         headerAppear 0.8s ease both;
 
@@ -102,7 +124,6 @@ header {
         rgba(7, 8, 13, 0.15);
 
     backdrop-filter: blur(15px);
-
 }
 
 
@@ -111,47 +132,31 @@ header {
 ========================================== */
 
 .logo {
-
     display: flex;
-
     align-items: center;
-
     gap: 20px;
-
 }
 
-
 .logo img {
-
     width: 58px;
-
     height: 58px;
 
     object-fit: contain;
 
     transition: 0.4s ease;
-
 }
 
-
 .logo img:hover {
-
     transform: scale(1.1);
 
     filter:
         drop-shadow(0 0 15px #a35cff);
-
 }
 
-
 .logo span {
-
     font-size: 28px;
-
     font-weight: bold;
-
     letter-spacing: 3px;
-
 }
 
 
@@ -160,49 +165,35 @@ header {
 ========================================== */
 
 nav {
-
     margin-left: auto;
 
     display: flex;
-
     gap: 45px;
-
 }
 
-
 nav a {
-
     color: white;
-
     text-decoration: none;
 
     font-size: 14px;
-
     letter-spacing: 3px;
 
     position: relative;
 
     transition: 0.3s ease;
-
 }
 
-
 nav a::after {
-
     content: "";
 
     position: absolute;
-
     left: 0;
-
     bottom: -10px;
 
     width: 0;
-
     height: 2px;
 
     background:
-
         linear-gradient(
             90deg,
             #8d5cff,
@@ -210,50 +201,38 @@ nav a::after {
         );
 
     transition: 0.3s ease;
-
 }
 
-
 nav a:hover {
-
     color: #a982ff;
 
     text-shadow:
         0 0 15px #9c64ff;
-
 }
 
-
 nav a:hover::after {
-
     width: 100%;
-
 }
 
 
 /* ==========================================
-   メイン
+   トップページのメイン
 ========================================== */
 
 main {
-
     position: relative;
-
     z-index: 2;
 
-    padding-top: 80px;
+    margin-top: 0;
 
+    padding-top: 80px;
     padding-left: 7%;
 
     max-width: 900px;
-
 }
 
-
 .portfolio-home main {
-
     padding-bottom: 70px;
-
 }
 
 
@@ -262,9 +241,7 @@ main {
 ========================================== */
 
 .small-title {
-
     font-size: 14px;
-
     letter-spacing: 7px;
 
     color: #b9b9c9;
@@ -272,40 +249,28 @@ main {
     margin-bottom: 65px;
 
     display: flex;
-
     align-items: center;
-
 }
-
 
 .portfolio-home .small-title {
-
     animation:
         fadeUp 0.8s 0.2s ease both;
-
 }
 
-
 .small-title::after {
-
     content: "";
 
     width: 170px;
-
     height: 1px;
 
     margin-left: 25px;
 
     background:
         rgba(255, 255, 255, 0.4);
-
 }
 
-
 .portfolio-home .small-title::after {
-
     background:
-
         linear-gradient(
             90deg,
             rgba(255, 255, 255, 0.4),
@@ -318,24 +283,16 @@ main {
 
     animation:
         lineFlow 5s infinite linear;
-
 }
 
-
 @keyframes lineFlow {
-
     from {
-
         background-position: 200% 0;
-
     }
 
     to {
-
         background-position: 0% 0;
-
     }
-
 }
 
 
@@ -344,57 +301,43 @@ main {
 ========================================== */
 
 h1 {
-
     font-size: 78px;
 
     line-height: 1.05;
-
     font-weight: 800;
-
     letter-spacing: -4px;
 
     margin-bottom: 35px;
 
     white-space: nowrap;
-
 }
-
 
 .portfolio-home h1 {
-
     animation:
         fadeUp 1s 0.4s ease both;
-
 }
 
-
 h1 span {
-
     background:
-
         linear-gradient(
             90deg,
-            #ffffff 10%,
-            #e8dcff 35%,
-            #a35cff 70%,
-            #4f8cff 100%
+            #ffffff,
+            #e8dcff,
+            #a35cff,
+            #4f8cff
         );
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     color: transparent;
-
 }
 
 
 /* タイトルの色が変化する */
 
 .portfolio-home h1 span {
-
     background:
-
         linear-gradient(
             90deg,
             #ffffff,
@@ -409,31 +352,22 @@ h1 span {
     background-size: 300% 100%;
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     color: transparent;
 
     animation:
         gradientFlow 6s infinite ease-in-out;
-
 }
 
-
 @keyframes gradientFlow {
-
     0%, 100% {
-
         background-position: 0% 50%;
-
     }
 
     50% {
-
         background-position: 100% 50%;
-
     }
-
 }
 
 
@@ -442,23 +376,17 @@ h1 span {
 ========================================== */
 
 .description {
-
     color: #c0c0ca;
 
     font-size: 15px;
-
     line-height: 2;
 
     margin-bottom: 55px;
-
 }
 
-
 .portfolio-home .description {
-
     animation:
         fadeUp 1s 0.6s ease both;
-
 }
 
 
@@ -467,25 +395,18 @@ h1 span {
 ========================================== */
 
 .portfolio-list {
-
     width: 705px;
-
     max-width: 90vw;
 
     display: flex;
-
     flex-direction: column;
 
     gap: 17px;
-
 }
 
-
 .portfolio-home .portfolio-list {
-
     animation:
         fadeUp 1s 0.8s ease both;
-
 }
 
 
@@ -494,7 +415,6 @@ h1 span {
 ========================================== */
 
 .portfolio-item {
-
     height: 87px;
 
     padding: 0 28px;
@@ -510,38 +430,24 @@ h1 span {
     backdrop-filter: blur(12px);
 
     display: flex;
-
     align-items: center;
 
     color: white;
-
     text-decoration: none;
 
     position: relative;
-
     overflow: hidden;
 
     transition:
-
         transform 0.4s ease,
-
         border-color 0.4s ease,
-
         background 0.4s ease,
-
         box-shadow 0.4s ease;
-
 }
 
-
-/* カード内の文字を光より前にする */
-
 .portfolio-item > * {
-
     position: relative;
-
     z-index: 2;
-
 }
 
 
@@ -550,15 +456,12 @@ h1 span {
 ========================================== */
 
 .number {
-
     color: #858593;
 
     font-size: 14px;
-
     letter-spacing: 2px;
 
     width: 55px;
-
     flex-shrink: 0;
 
     margin-right: 20px;
@@ -569,11 +472,9 @@ h1 span {
     height: 35px;
 
     display: flex;
-
     align-items: center;
 
     transition: 0.3s ease;
-
 }
 
 
@@ -582,13 +483,9 @@ h1 span {
 ========================================== */
 
 .portfolio-item strong {
-
     font-size: 17px;
-
     font-weight: 500;
-
     letter-spacing: 1px;
-
 }
 
 
@@ -597,7 +494,6 @@ h1 span {
 ========================================== */
 
 .arrow {
-
     margin-left: auto;
 
     font-size: 28px;
@@ -605,7 +501,6 @@ h1 span {
     color: #9c64ff;
 
     transition: 0.3s ease;
-
 }
 
 
@@ -614,14 +509,12 @@ h1 span {
 ========================================== */
 
 .portfolio-item:hover {
-
     transform:
         translateX(12px) scale(1.02);
 
     border-color: #a675ff;
 
     background:
-
         linear-gradient(
             90deg,
             rgba(130, 70, 255, 0.18),
@@ -629,37 +522,25 @@ h1 span {
         );
 
     box-shadow:
-
         0 0 30px rgba(140, 80, 255, 0.3),
-
         inset 0 0 20px rgba(100, 60, 255, 0.08);
-
 }
 
-
 .portfolio-item:hover .arrow {
-
     transform: translateX(8px);
 
     color: white;
 
     text-shadow:
         0 0 12px #a35cff;
-
 }
-
 
 .portfolio-item:hover .number {
-
     color: #c9a5ff;
-
 }
 
-
 .portfolio-item:active {
-
     transform: scale(0.98);
-
 }
 
 
@@ -667,22 +548,18 @@ h1 span {
    カードを横切る光
 ========================================== */
 
-.portfolio-home .portfolio-item::before {
-
+.portfolio-item::before {
     content: "";
 
     position: absolute;
 
     top: 0;
-
     left: -100%;
 
     width: 100%;
-
     height: 100%;
 
     background:
-
         linear-gradient(
             110deg,
             transparent,
@@ -693,31 +570,24 @@ h1 span {
     transition: left 0.7s ease;
 
     pointer-events: none;
-
 }
 
-
-.portfolio-home .portfolio-item:hover::before {
-
+.portfolio-item:hover::before {
     left: 100%;
-
 }
 
 
 /* ==========================================
-   カード内のマウス追従
+   カード内部のマウス追従
 ========================================== */
 
-.portfolio-home .portfolio-item::after {
-
+.portfolio-item::after {
     content: "";
 
     position: absolute;
-
     inset: 0;
 
     background:
-
         radial-gradient(
             circle at
             var(--mouse-x, 50%)
@@ -731,14 +601,10 @@ h1 span {
     transition: opacity 0.3s ease;
 
     pointer-events: none;
-
 }
 
-
-.portfolio-home .portfolio-item:hover::after {
-
+.portfolio-item:hover::after {
     opacity: 1;
-
 }
 
 
@@ -747,11 +613,9 @@ h1 span {
 ========================================== */
 
 .aurora {
-
-    position: fixed;
+    position: fixed !important;
 
     width: 650px;
-
     height: 650px;
 
     border-radius: 50%;
@@ -761,14 +625,10 @@ h1 span {
     pointer-events: none;
 
     z-index: -1;
-
 }
 
-
 .aurora-1 {
-
     top: -200px;
-
     right: -100px;
 
     background:
@@ -776,14 +636,10 @@ h1 span {
 
     animation:
         auroraMove 12s infinite alternate ease-in-out;
-
 }
 
-
 .aurora-2 {
-
     bottom: -250px;
-
     left: -150px;
 
     background:
@@ -791,14 +647,10 @@ h1 span {
 
     animation:
         auroraMove 16s infinite alternate-reverse ease-in-out;
-
 }
 
-
 .aurora-3 {
-
     top: 30%;
-
     left: 40%;
 
     background:
@@ -806,60 +658,50 @@ h1 span {
 
     animation:
         auroraMove 20s infinite alternate ease-in-out;
-
 }
 
-
 @keyframes auroraMove {
-
     0% {
-
         transform:
             translate(0, 0) scale(1);
-
     }
 
     50% {
-
         transform:
             translate(100px, -80px) scale(1.2);
-
     }
 
     100% {
-
         transform:
             translate(-80px, 100px) scale(0.9);
 
         filter:
             blur(120px) hue-rotate(35deg);
-
     }
-
 }
 
 
 /* ==========================================
-   近未来的なグリッド背景
+   動くグリッド背景
 ========================================== */
 
 .background-grid {
-
-    position: fixed;
+    position: fixed !important;
 
     inset: 0;
+
+    width: 100%;
+    height: 100%;
 
     z-index: -1;
 
     pointer-events: none;
 
     background-image:
-
         linear-gradient(
             rgba(150, 110, 255, 0.045) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
             rgba(150, 110, 255, 0.045) 1px,
@@ -869,7 +711,6 @@ h1 span {
     background-size: 65px 65px;
 
     mask-image:
-
         linear-gradient(
             to left,
             black,
@@ -878,24 +719,16 @@ h1 span {
 
     animation:
         gridMove 20s infinite linear;
-
 }
 
-
 @keyframes gridMove {
-
     from {
-
         background-position: 0 0;
-
     }
 
     to {
-
         background-position: 65px 65px;
-
     }
-
 }
 
 
@@ -904,19 +737,15 @@ h1 span {
 ========================================== */
 
 .big-x {
-
-    position: fixed;
+    position: fixed !important;
 
     right: -80px;
-
     bottom: -250px;
 
     z-index: -1;
 
     font-size: 600px;
-
     line-height: 1;
-
     font-weight: 900;
 
     color:
@@ -930,15 +759,12 @@ h1 span {
 
     pointer-events: none;
 
+    user-select: none;
 }
 
-
 .portfolio-home .big-x {
-
     right: 3vw;
-
     top: 230px;
-
     bottom: auto;
 
     font-size: 520px;
@@ -951,14 +777,10 @@ h1 span {
 
     animation:
         floatX 8s infinite ease-in-out;
-
 }
 
-
 @keyframes floatX {
-
     0%, 100% {
-
         transform:
             translateY(0) rotate(-8deg);
 
@@ -967,11 +789,9 @@ h1 span {
 
         text-shadow:
             0 0 30px rgba(100, 70, 255, 0.15);
-
     }
 
     50% {
-
         transform:
             translateY(-35px) rotate(-2deg);
 
@@ -980,9 +800,7 @@ h1 span {
 
         text-shadow:
             0 0 60px rgba(90, 100, 255, 0.3);
-
     }
-
 }
 
 
@@ -991,21 +809,17 @@ h1 span {
 ========================================== */
 
 .mouse-light {
-
-    position: fixed;
+    position: fixed !important;
 
     top: 0;
-
     left: 0;
 
     width: 500px;
-
     height: 500px;
 
     border-radius: 50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(130, 80, 255, 0.18),
@@ -1023,28 +837,6 @@ h1 span {
 
     transition:
         opacity 0.5s ease;
-
-}
-
-
-/* ==========================================
-   光の粒子
-========================================== */
-
-#particles {
-
-    position: fixed;
-
-    inset: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    pointer-events: none;
-
-    z-index: 1;
-
 }
 
 
@@ -1053,48 +845,35 @@ h1 span {
 ========================================== */
 
 @keyframes fadeUp {
-
     from {
-
         opacity: 0;
 
         transform:
             translateY(35px);
-
     }
 
     to {
-
         opacity: 1;
 
         transform:
             translateY(0);
-
     }
-
 }
 
-
 @keyframes headerAppear {
-
     from {
-
         opacity: 0;
 
         transform:
             translateY(-20px);
-
     }
 
     to {
-
         opacity: 1;
 
         transform:
             translateY(0);
-
     }
-
 }
 
 
@@ -1103,48 +882,48 @@ h1 span {
 ========================================== */
 
 .portfolio-home.page-exit {
-
     opacity: 0;
-
 }
 
 
 /* ==========================================
 
-   デザイン演習ページ
-   2階層目
+   2階層目のページ設定
+
+   デザイン演習Ⅰ・Ⅱ
+   デジタルファブリケーション
 
 ========================================== */
 
 
 /* ==========================================
-   2階層目の背景
+   背景
 ========================================== */
 
 .page-bg {
-
-    position: fixed;
+    position: fixed !important;
 
     inset: 0;
 
+    width: 100%;
+    height: 100%;
+
     z-index: -3;
 
-    background:
+    pointer-events: none;
 
+    background:
         radial-gradient(
             circle at 85% 20%,
             rgba(75, 55, 180, 0.18),
             transparent 40%
         ),
-
         radial-gradient(
             circle at 10% 90%,
             rgba(90, 50, 180, 0.15),
             transparent 45%
         ),
-
         #08090d;
-
 }
 
 
@@ -1153,23 +932,18 @@ h1 span {
 ========================================== */
 
 .sub-header {
-
     width: 100%;
-
     height: 100px;
 
     display: flex;
-
     align-items: center;
 
     padding-left: 7%;
-
-    box-sizing: border-box;
+    margin-top: 0;
 
     position: relative;
 
-    z-index: 5;
-
+    z-index: 10;
 }
 
 
@@ -1178,24 +952,28 @@ h1 span {
 ========================================== */
 
 .home-logo {
-
     display: block;
 
     width: 58px;
-
     height: 58px;
 
+    flex-shrink: 0;
 }
 
-
 .home-logo img {
-
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
 
+    transition: 0.4s ease;
+}
+
+.home-logo:hover img {
+    transform: scale(1.1);
+
+    filter:
+        drop-shadow(0 0 15px #a35cff);
 }
 
 
@@ -1204,31 +982,24 @@ h1 span {
 ========================================== */
 
 .top-title {
-
     margin-left: 35px;
 
     font-size: 13px;
-
     letter-spacing: 7px;
 
     color: #bfc0d0;
 
     white-space: nowrap;
-
 }
 
-
 .header-line {
-
     width: 190px;
-
     height: 1px;
 
     margin-left: 35px;
 
     background:
         rgba(255, 255, 255, 0.3);
-
 }
 
 
@@ -1237,21 +1008,26 @@ h1 span {
 ========================================== */
 
 .sub-main {
-
     width: 900px;
 
-    max-width: 82vw;
+    max-width: 86vw;
 
+    margin-top: 0;
     margin-left: 7%;
 
     padding-top: 45px;
-
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 120px;
 
     position: relative;
 
     z-index: 2;
+}
 
+.portfolio-home .sub-main {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
@@ -1260,7 +1036,6 @@ h1 span {
 ========================================== */
 
 .sub-small-title {
-
     font-size: 13px;
 
     letter-spacing: 6px;
@@ -1268,7 +1043,6 @@ h1 span {
     color: #9d9eaf;
 
     margin-bottom: 18px;
-
 }
 
 
@@ -1277,50 +1051,42 @@ h1 span {
 ========================================== */
 
 .sub-page-title {
-
     margin: 0;
 
-    font-size: 65px;
+    font-size: clamp(26px, 4vw, 56px);
 
     line-height: 1.1;
 
     letter-spacing: -2px;
-
     font-weight: 800;
 
     color: white;
 
+    white-space: nowrap;
 }
 
-
 .sub-page-title span {
-
     background:
-
         linear-gradient(
             90deg,
-            #c38cff 0%,
-            #8c6cff 50%,
-            #5e8fff 100%
+            #c38cff,
+            #8c6cff,
+            #5e8fff
         );
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     color: transparent;
-
 }
 
 
 /* ==========================================
-   説明
+   説明文
 ========================================== */
 
 .sub-description {
-
     margin-top: 25px;
-
     margin-bottom: 65px;
 
     max-width: 720px;
@@ -1328,9 +1094,7 @@ h1 span {
     color: #b7b8c5;
 
     font-size: 14px;
-
     line-height: 2;
-
 }
 
 
@@ -1339,24 +1103,18 @@ h1 span {
 ========================================== */
 
 .portfolio-section {
-
     width: 800px;
 
     max-width: 100%;
 
     margin-bottom: 65px;
-
 }
 
-
 .section-heading {
-
     display: flex;
-
     align-items: center;
 
     margin-bottom: 20px;
-
 }
 
 
@@ -1365,26 +1123,21 @@ h1 span {
 ========================================== */
 
 .section-number {
-
     width: 55px;
-
     min-width: 55px;
 
     height: 35px;
 
     display: flex;
-
     align-items: center;
 
     color: #858694;
 
     font-size: 13px;
-
     letter-spacing: 2px;
 
     border-right:
         1px solid rgba(255, 255, 255, 0.25);
-
 }
 
 
@@ -1393,34 +1146,28 @@ h1 span {
 ========================================== */
 
 .section-heading h2 {
-
     margin: 0 0 0 20px;
 
     font-size: 24px;
-
     font-weight: 600;
 
     color: white;
 
     letter-spacing: 1px;
-
 }
 
 
 /* ==========================================
-   カード一覧
+   ノート一覧
 ========================================== */
 
 .note-list {
-
     display: flex;
-
     flex-direction: column;
 
     gap: 14px;
 
     padding-left: 75px;
-
 }
 
 
@@ -1429,22 +1176,20 @@ h1 span {
 ========================================== */
 
 .note-card {
-
     width: 100%;
 
     min-height: 72px;
 
-    box-sizing: border-box;
-
     padding: 0 25px;
 
     display: flex;
-
     align-items: center;
 
     text-decoration: none;
-
     color: white;
+
+    position: relative;
+    overflow: hidden;
 
     border:
         1px solid rgba(255, 255, 255, 0.25);
@@ -1454,16 +1199,13 @@ h1 span {
     background:
         rgba(255, 255, 255, 0.025);
 
+    backdrop-filter: blur(12px);
+
     transition:
-
-        transform 0.25s ease,
-
-        border-color 0.25s ease,
-
-        background 0.25s ease,
-
-        box-shadow 0.25s ease;
-
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        background 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 
@@ -1472,17 +1214,15 @@ h1 span {
 ========================================== */
 
 .note-number {
-
     width: 45px;
-
     min-width: 45px;
 
     font-size: 13px;
-
     letter-spacing: 2px;
 
     color: #777887;
 
+    transition: color 0.3s ease;
 }
 
 
@@ -1491,15 +1231,12 @@ h1 span {
 ========================================== */
 
 .note-title {
-
     font-size: 15px;
-
     font-weight: 500;
 
     letter-spacing: 1px;
 
     color: #f3f3f7;
-
 }
 
 
@@ -1508,7 +1245,6 @@ h1 span {
 ========================================== */
 
 .note-arrow {
-
     margin-left: auto;
 
     font-size: 25px;
@@ -1516,20 +1252,16 @@ h1 span {
     color: #9a62ff;
 
     transition:
-
         transform 0.25s ease,
-
         color 0.25s ease;
-
 }
 
 
 /* ==========================================
-   ノートのホバー
+   ノートのホバー演出
 ========================================== */
 
 .note-card:hover {
-
     transform:
         translateX(8px);
 
@@ -1537,7 +1269,6 @@ h1 span {
         rgba(145, 95, 255, 0.8);
 
     background:
-
         linear-gradient(
             90deg,
             rgba(120, 70, 255, 0.12),
@@ -1546,17 +1277,17 @@ h1 span {
 
     box-shadow:
         0 0 25px rgba(120, 80, 255, 0.12);
-
 }
 
-
 .note-card:hover .note-arrow {
-
     transform:
         translateX(8px);
 
     color: white;
+}
 
+.note-card:hover .note-number {
+    color: #c9a5ff;
 }
 
 
@@ -1565,13 +1296,11 @@ h1 span {
 ========================================== */
 
 .back-home {
-
     display: block;
 
     width: fit-content;
 
     margin-left: 7%;
-
     margin-bottom: 70px;
 
     color: #999aaa;
@@ -1579,21 +1308,19 @@ h1 span {
     text-decoration: none;
 
     font-size: 13px;
-
     letter-spacing: 2px;
 
-    transition: 0.25s ease;
+    position: relative;
+    z-index: 3;
 
+    transition: 0.25s ease;
 }
 
-
 .back-home:hover {
-
     color: white;
 
     transform:
         translateX(5px);
-
 }
 
 
@@ -1602,11 +1329,9 @@ h1 span {
 ========================================== */
 
 a:focus-visible {
-
     outline: 2px solid #b68cff;
 
     outline-offset: 5px;
-
 }
 
 
@@ -1616,361 +1341,257 @@ a:focus-visible {
 
 @media (max-width: 700px) {
 
-
     header {
-
         height: 80px;
 
         padding: 0 25px;
-
     }
-
 
     .logo img {
-
         width: 45px;
-
         height: 45px;
-
     }
-
 
     .logo span {
-
         font-size: 22px;
-
     }
-
 
     nav {
-
         display: none;
-
     }
-
 
     main {
-
         padding: 60px 25px;
-
     }
 
-
     .small-title {
-
         font-size: 11px;
 
         letter-spacing: 5px;
 
         margin-bottom: 45px;
-
     }
-
 
     .small-title::after {
-
         width: 70px;
-
         flex-shrink: 1;
-
     }
 
-
     h1 {
-
         font-size: clamp(30px, 9vw, 48px);
 
         letter-spacing: -2px;
 
         white-space: normal;
-
     }
-
 
     .description {
-
         font-size: 13px;
-
     }
-
 
     .portfolio-list {
-
         width: 100%;
-
+        max-width: 100%;
     }
 
-
     .portfolio-item {
-
         height: 75px;
 
         padding: 0 20px;
-
     }
-
 
     .portfolio-item strong {
-
         font-size: 13px;
-
     }
-
 
     .portfolio-item:hover {
-
         transform: translateX(4px);
-
     }
 
-
     .number {
-
         width: 35px;
 
         margin-right: 12px;
-
     }
-
 
     .arrow {
-
         font-size: 23px;
-
     }
 
+
+    /* 背景 */
 
     .big-x {
-
         font-size: 350px;
 
         right: -120px;
-
         bottom: -100px;
-
     }
-
 
     .portfolio-home .big-x {
-
         font-size: 350px;
 
         right: -120px;
-
         top: auto;
-
         bottom: -100px;
-
     }
 
-
     .aurora {
-
         width: 350px;
-
         height: 350px;
 
         filter: blur(80px);
-
     }
-
 
     .mouse-light {
-
         display: none;
-
     }
 
-
     .background-grid {
-
         background-size: 45px 45px;
-
     }
 
 
     /* 2階層目 */
 
     .sub-header {
-
         height: 80px;
 
         padding-left: 25px;
-
+        padding-right: 25px;
     }
-
 
     .home-logo {
-
         width: 45px;
-
         height: 45px;
-
     }
 
-
     .top-title {
-
         margin-left: 20px;
 
         font-size: 10px;
-
         letter-spacing: 4px;
-
     }
-
 
     .header-line {
-
         display: none;
-
     }
 
-
     .sub-main {
-
         max-width: none;
-
         width: auto;
 
         margin-left: 25px;
-
         margin-right: 25px;
 
         padding-top: 35px;
-
+        padding-left: 0;
+        padding-right: 0;
     }
 
-
     .sub-page-title {
-
-        font-size: 45px;
+        font-size: clamp(22px, 6vw, 40px);
 
         letter-spacing: -1px;
 
+        white-space: normal;
     }
 
-
     .sub-description {
-
         font-size: 12px;
 
         margin-bottom: 45px;
-
     }
-
 
     .portfolio-section {
-
         width: 100%;
-
     }
-
 
     .section-heading h2 {
-
         font-size: 19px;
-
     }
-
 
     .note-list {
-
         padding-left: 0;
-
     }
 
-
     .note-card {
-
         min-height: 62px;
 
         padding: 0 18px;
-
     }
-
 
     .note-title {
-
         font-size: 13px;
-
     }
 
-
     .back-home {
-
         margin-left: 25px;
-
     }
 
 }
 
 
 /* ==========================================
-   アニメーションを減らす設定への対応
+   アニメーション軽減設定
 ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
     .portfolio-home,
-
     .portfolio-home *,
-
     .portfolio-home *::before,
-
     .portfolio-home *::after {
-
         animation: none !important;
-
         transition: none !important;
-
     }
-
 
     #particles,
-
     .mouse-light {
-
         display: none;
+    }
 
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        translate: none !important;
     }
 
 }
 
-/* 背景による余分な空白を防止 */
 
-.portfolio-home .aurora,
-.portfolio-home .background-grid,
-.portfolio-home .mouse-light,
-.portfolio-home #particles,
-.portfolio-home .big-x,
-.portfolio-home .page-bg {
+/* ==========================================
+   最終修正
+   背景が画面の高さを占有しないようにする
+========================================== */
 
-    position: fixed;
-    pointer-events: none;
-
+body.portfolio-home > canvas,
+body.portfolio-home > .aurora,
+body.portfolio-home > .background-grid,
+body.portfolio-home > .mouse-light,
+body.portfolio-home > .big-x,
+body.portfolio-home > .page-bg {
+    position: fixed !important;
+    pointer-events: none !important;
 }
 
-.portfolio-home #particles,
-.portfolio-home .background-grid,
-.portfolio-home .page-bg {
+body.portfolio-home > #particles,
+body.portfolio-home > .background-grid,
+body.portfolio-home > .page-bg {
+    inset: 0 !important;
 
-    inset: 0;
-    width: 100%;
-    height: 100%;
-
+    width: 100% !important;
+    height: 100% !important;
 }
 
-.portfolio-home header {
-
+body.portfolio-home > header {
     position: relative;
-    z-index: 10;
-
+    top: auto;
+    margin-top: 0;
 }
 
-.portfolio-home main {
-
+body.portfolio-home > main {
     position: relative;
-    z-index: 2;
-
+    top: auto;
+    margin-top: 0;
 }
