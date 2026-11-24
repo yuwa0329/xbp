@@ -1,27 +1,22 @@
+
 /* ==========================================
-   全体
+   全体設定
 ========================================== */
 
-
-/* すべての要素の余白をリセット */
-
 * {
+
     box-sizing: border-box;
 
     margin: 0;
 
     padding: 0;
+
 }
 
-
-/* ページ全体 */
 
 body {
 
     min-height: 100vh;
-
-
-    /* 背景 */
 
     background:
 
@@ -39,23 +34,39 @@ body {
 
         #07080d;
 
+    color: white;
+
+    font-family:
+
+        "Noto Sans JP",
+
+        "Yu Gothic",
+
+        sans-serif;
+
+    overflow-x: hidden;
+
+}
+
+
+.portfolio-home {
+
+    position: relative;
+
+    isolation: isolate;
+
+    transition: opacity 0.35s ease;
+
+}
+
+
+::selection {
+
+    background: #935cff;
 
     color: white;
 
-
-    /* 文字 */
-
-    font-family:
-        "Noto Sans JP",
-        "Yu Gothic",
-        sans-serif;
-
-
-    /* 横スクロールを防ぐ */
-
-    overflow-x: hidden;
 }
-
 
 
 /* ==========================================
@@ -66,27 +77,33 @@ header {
 
     height: 100px;
 
-
     display: flex;
 
     align-items: center;
 
-
-    padding:
-        0 55px;
-
-
-    /* 下の線 */
+    padding: 0 55px;
 
     border-bottom:
         1px solid rgba(255, 255, 255, 0.15);
 
-
     position: relative;
 
     z-index: 10;
+
 }
 
+
+.portfolio-home header {
+
+    animation:
+        headerAppear 0.8s ease both;
+
+    background:
+        rgba(7, 8, 13, 0.15);
+
+    backdrop-filter: blur(15px);
+
+}
 
 
 /* ==========================================
@@ -100,6 +117,7 @@ header {
     align-items: center;
 
     gap: 20px;
+
 }
 
 
@@ -110,6 +128,19 @@ header {
     height: 58px;
 
     object-fit: contain;
+
+    transition: 0.4s ease;
+
+}
+
+
+.logo img:hover {
+
+    transform: scale(1.1);
+
+    filter:
+        drop-shadow(0 0 15px #a35cff);
+
 }
 
 
@@ -120,8 +151,8 @@ header {
     font-weight: bold;
 
     letter-spacing: 3px;
-}
 
+}
 
 
 /* ==========================================
@@ -132,10 +163,10 @@ nav {
 
     margin-left: auto;
 
-
     display: flex;
 
     gap: 45px;
+
 }
 
 
@@ -145,40 +176,30 @@ nav a {
 
     text-decoration: none;
 
-
     font-size: 14px;
 
     letter-spacing: 3px;
 
-
     position: relative;
 
+    transition: 0.3s ease;
 
-    transition:
-        0.3s;
 }
 
-
-
-/* ナビゲーションの下線 */
 
 nav a::after {
 
     content: "";
 
-
     position: absolute;
-
 
     left: 0;
 
     bottom: -10px;
 
-
     width: 0;
 
     height: 2px;
-
 
     background:
 
@@ -188,26 +209,26 @@ nav a::after {
             #4d8cff
         );
 
+    transition: 0.3s ease;
 
-    transition:
-        0.3s;
 }
 
-
-
-/* マウスを乗せたとき */
 
 nav a:hover {
 
     color: #a982ff;
+
+    text-shadow:
+        0 0 15px #9c64ff;
+
 }
 
 
 nav a:hover::after {
 
     width: 100%;
-}
 
+}
 
 
 /* ==========================================
@@ -220,68 +241,102 @@ main {
 
     z-index: 2;
 
-
-    /* 上からの距離 */
-
     padding-top: 80px;
-
-
-    /* 左からの距離 */
 
     padding-left: 7%;
 
-
     max-width: 900px;
+
 }
 
 
+.portfolio-home main {
+
+    padding-bottom: 70px;
+
+}
+
 
 /* ==========================================
-   YUWA'S PORTFOLIO
+   小さいタイトル
 ========================================== */
 
 .small-title {
 
     font-size: 14px;
 
-
-    /* 文字の間隔 */
-
     letter-spacing: 7px;
-
 
     color: #b9b9c9;
 
-
     margin-bottom: 65px;
-
 
     display: flex;
 
     align-items: center;
+
 }
 
 
+.portfolio-home .small-title {
 
-/* 横線 */
+    animation:
+        fadeUp 0.8s 0.2s ease both;
+
+}
+
 
 .small-title::after {
 
     content: "";
 
-
     width: 170px;
 
     height: 1px;
 
+    margin-left: 25px;
 
     background:
         rgba(255, 255, 255, 0.4);
 
-
-    margin-left: 25px;
 }
 
+
+.portfolio-home .small-title::after {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.4),
+            #a35cff,
+            #4f8cff,
+            transparent
+        );
+
+    background-size: 200% 100%;
+
+    animation:
+        lineFlow 5s infinite linear;
+
+}
+
+
+@keyframes lineFlow {
+
+    from {
+
+        background-position: 200% 0;
+
+    }
+
+    to {
+
+        background-position: 0% 0;
+
+    }
+
+}
 
 
 /* ==========================================
@@ -292,36 +347,26 @@ h1 {
 
     font-size: 78px;
 
-
-    /* 行間 */
-
     line-height: 1.05;
-
 
     font-weight: 800;
 
-
-    /* 文字間隔 */
-
     letter-spacing: -4px;
-
 
     margin-bottom: 35px;
 
-
-    /*
-    「ポートフォリオ一覧」が
-    途中で改行されないようにする
-    */
-
     white-space: nowrap;
+
 }
 
 
+.portfolio-home h1 {
 
-/* ==========================================
-   「ポートフォリオ一覧」
-========================================== */
+    animation:
+        fadeUp 1s 0.4s ease both;
+
+}
+
 
 h1 span {
 
@@ -335,17 +380,61 @@ h1 span {
             #4f8cff 100%
         );
 
+    -webkit-background-clip: text;
 
-    /* グラデーションを文字に適用 */
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+/* タイトルの色が変化する */
+
+.portfolio-home h1 span {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #e8dcff,
+            #a35cff,
+            #4f8cff,
+            #69dfff,
+            #bd72ff,
+            #ffffff
+        );
+
+    background-size: 300% 100%;
 
     -webkit-background-clip: text;
 
     background-clip: text;
 
-
     color: transparent;
+
+    animation:
+        gradientFlow 6s infinite ease-in-out;
+
 }
 
+
+@keyframes gradientFlow {
+
+    0%, 100% {
+
+        background-position: 0% 50%;
+
+    }
+
+    50% {
+
+        background-position: 100% 50%;
+
+    }
+
+}
 
 
 /* ==========================================
@@ -356,16 +445,21 @@ h1 span {
 
     color: #c0c0ca;
 
-
     font-size: 15px;
-
 
     line-height: 2;
 
-
     margin-bottom: 55px;
+
 }
 
+
+.portfolio-home .description {
+
+    animation:
+        fadeUp 1s 0.6s ease both;
+
+}
 
 
 /* ==========================================
@@ -376,20 +470,23 @@ h1 span {
 
     width: 705px;
 
-
-    /* 画面が狭い場合 */
-
     max-width: 90vw;
-
 
     display: flex;
 
     flex-direction: column;
 
-
     gap: 17px;
+
 }
 
+
+.portfolio-home .portfolio-list {
+
+    animation:
+        fadeUp 1s 0.8s ease both;
+
+}
 
 
 /* ==========================================
@@ -400,98 +497,84 @@ h1 span {
 
     height: 87px;
 
-
-    padding:
-        0 28px;
-
-
-    /* 枠線 */
+    padding: 0 28px;
 
     border:
         1px solid rgba(255, 255, 255, 0.35);
 
-
-    /* 角を丸くする */
-
     border-radius: 13px;
-
-
-    /* 背景 */
 
     background:
         rgba(255, 255, 255, 0.025);
 
-
-    /* ガラスっぽくする */
-
     backdrop-filter: blur(12px);
-
-
-    /* 横並び */
 
     display: flex;
 
     align-items: center;
 
-
-    /* 文字 */
-
     color: white;
 
     text-decoration: none;
 
-
     position: relative;
 
+    overflow: hidden;
 
     transition:
 
-        transform 0.3s ease,
+        transform 0.4s ease,
 
-        border-color 0.3s ease,
+        border-color 0.4s ease,
 
-        background 0.3s ease,
+        background 0.4s ease,
 
-        box-shadow 0.3s ease;
+        box-shadow 0.4s ease;
+
 }
 
 
+/* カード内の文字を光より前にする */
+
+.portfolio-item > * {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
 
 /* ==========================================
-   番号
+   カード番号
 ========================================== */
 
 .number {
 
     color: #858593;
 
-
     font-size: 14px;
-
 
     letter-spacing: 2px;
 
-
     width: 55px;
 
+    flex-shrink: 0;
 
     margin-right: 20px;
-
-
-    /* 右側の線 */
 
     border-right:
         1px solid rgba(255, 255, 255, 0.25);
 
-
     height: 35px;
-
 
     display: flex;
 
     align-items: center;
-}
 
+    transition: 0.3s ease;
+
+}
 
 
 /* ==========================================
@@ -502,13 +585,11 @@ h1 span {
 
     font-size: 17px;
 
-
     font-weight: 500;
 
-
     letter-spacing: 1px;
-}
 
+}
 
 
 /* ==========================================
@@ -519,360 +600,307 @@ h1 span {
 
     margin-left: auto;
 
-
     font-size: 28px;
-
 
     color: #9c64ff;
 
+    transition: 0.3s ease;
 
-    transition:
-        0.3s;
 }
 
 
-
 /* ==========================================
-   カードにマウスを乗せたとき
+   カードのホバー演出
 ========================================== */
 
 .portfolio-item:hover {
 
-    /* 少し右に動く */
-
     transform:
-        translateX(10px);
+        translateX(12px) scale(1.02);
 
-
-    /* 枠線を紫にする */
-
-    border-color:
-        #985cff;
-
-
-    /* 背景 */
+    border-color: #a675ff;
 
     background:
 
         linear-gradient(
             90deg,
-            rgba(130, 70, 255, 0.12),
-            rgba(60, 100, 255, 0.04)
+            rgba(130, 70, 255, 0.18),
+            rgba(60, 100, 255, 0.06)
         );
-
-
-    /* 光 */
 
     box-shadow:
 
-        0 0 35px
-        rgba(120, 70, 255, 0.15);
+        0 0 30px rgba(140, 80, 255, 0.3),
+
+        inset 0 0 20px rgba(100, 60, 255, 0.08);
+
 }
 
-
-
-/* 矢印も動く */
 
 .portfolio-item:hover .arrow {
 
-    transform:
-        translateX(8px);
-
+    transform: translateX(8px);
 
     color: white;
+
+    text-shadow:
+        0 0 12px #a35cff;
+
 }
 
 
+.portfolio-item:hover .number {
+
+    color: #c9a5ff;
+
+}
+
+
+.portfolio-item:active {
+
+    transform: scale(0.98);
+
+}
+
 
 /* ==========================================
-   背景の巨大なX
+   カードを横切る光
 ========================================== */
 
-.big-x {
+.portfolio-home .portfolio-item::before {
 
-    /*
-    fixedではなくabsolute
-
-    ↓
-
-    画面に固定されない
-
-    ↓
-
-    スクロールすると
-    ページと一緒に動く
-    */
+    content: "";
 
     position: absolute;
 
+    top: 0;
 
+    left: -100%;
 
-    /* 右側 */
+    width: 100%;
 
-    right: 3vw;
+    height: 100%;
 
+    background:
 
+        linear-gradient(
+            110deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+        );
 
-    /*
-    Xを上げる
-
-    前より下に行きすぎないように
-    230pxに変更
-    */
-
-    top: 230px;
-
-
-
-    /* Xの大きさ */
-
-    font-size: 520px;
-
-
-    font-weight: 900;
-
-
-    line-height: 1;
-
-
-
-    /*
-    Xの中身を透明にする
-    */
-
-    color: transparent;
-
-
-
-    /*
-    Xの輪郭
-
-    以前より少し濃くしている
-    */
-
-    -webkit-text-stroke:
-        3px rgba(110, 80, 255, 0.35);
-
-
-
-    /*
-    Xの周りを少し光らせる
-    */
-
-    text-shadow:
-        0 0 30px
-        rgba(100, 70, 255, 0.15);
-
-
-
-    /*
-    少し斜めにする
-    */
-
-    transform:
-        rotate(-8deg);
-
-
-
-    /*
-    背景なので
-    文字やカードより後ろ
-    */
-
-    z-index: 0;
-
-
-
-    /*
-    Xがクリックの邪魔をしない
-    */
+    transition: left 0.7s ease;
 
     pointer-events: none;
+
 }
 
 
+.portfolio-home .portfolio-item:hover::before {
+
+    left: 100%;
+
+}
+
 
 /* ==========================================
-   スマートフォン
+   カード内のマウス追従
 ========================================== */
 
-@media (max-width: 700px) {
+.portfolio-home .portfolio-item::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            circle at
+            var(--mouse-x, 50%)
+            var(--mouse-y, 50%),
+            rgba(165, 110, 255, 0.25),
+            transparent 180px
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+
+    pointer-events: none;
+
+}
 
 
-    /* ヘッダー */
+.portfolio-home .portfolio-item:hover::after {
 
-    header {
+    opacity: 1;
 
-        height: 80px;
+}
 
-        padding:
-            0 25px;
+
+/* ==========================================
+   オーロラ背景
+========================================== */
+
+.aurora {
+
+    position: fixed;
+
+    width: 650px;
+
+    height: 650px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+}
+
+
+.aurora-1 {
+
+    top: -200px;
+
+    right: -100px;
+
+    background:
+        rgba(85, 45, 220, 0.28);
+
+    animation:
+        auroraMove 12s infinite alternate ease-in-out;
+
+}
+
+
+.aurora-2 {
+
+    bottom: -250px;
+
+    left: -150px;
+
+    background:
+        rgba(140, 40, 220, 0.25);
+
+    animation:
+        auroraMove 16s infinite alternate-reverse ease-in-out;
+
+}
+
+
+.aurora-3 {
+
+    top: 30%;
+
+    left: 40%;
+
+    background:
+        rgba(30, 90, 220, 0.18);
+
+    animation:
+        auroraMove 20s infinite alternate ease-in-out;
+
+}
+
+
+@keyframes auroraMove {
+
+    0% {
+
+        transform:
+            translate(0, 0) scale(1);
+
     }
 
+    50% {
 
+        transform:
+            translate(100px, -80px) scale(1.2);
 
-    /* ロゴ */
-
-    .logo img {
-
-        width: 45px;
-
-        height: 45px;
     }
 
+    100% {
 
-    .logo span {
+        transform:
+            translate(-80px, 100px) scale(0.9);
 
-        font-size: 22px;
-    }
+        filter:
+            blur(120px) hue-rotate(35deg);
 
-
-
-    /* ナビゲーションを隠す */
-
-    nav {
-
-        display: none;
-    }
-
-
-
-    /* メイン */
-
-    main {
-
-        padding:
-            60px 25px;
-    }
-
-
-
-    /* 小さいタイトル */
-
-    .small-title {
-
-        font-size: 11px;
-
-        letter-spacing: 5px;
-
-        margin-bottom: 45px;
-    }
-
-
-    .small-title::after {
-
-        width: 70px;
-    }
-
-
-
-    /* メインタイトル */
-
-    h1 {
-
-        font-size: 48px;
-
-        letter-spacing: -2px;
-
-
-        /*
-        スマホでは
-        画面幅に合わせて改行可能
-        */
-
-        white-space: normal;
-    }
-
-
-
-    /* 説明 */
-
-    .description {
-
-        font-size: 13px;
-    }
-
-
-
-    /* 一覧 */
-
-    .portfolio-list {
-
-        width: 100%;
-    }
-
-
-
-    /* カード */
-
-    .portfolio-item {
-
-        height: 75px;
-
-        padding:
-            0 20px;
-    }
-
-
-
-    /* カードの文字 */
-
-    .portfolio-item strong {
-
-        font-size: 13px;
-    }
-
-
-
-    /* スマホのX */
-
-    .big-x {
-
-        font-size: 400px;
-
-        right: -100px;
-
-        top: 450px;
     }
 
 }
-/* ==========================================
-   デザイン演習ページ
-   2階層目
-========================================== */
 
 
 /* ==========================================
-   ページ全体
+   近未来的なグリッド背景
 ========================================== */
 
-.page-bg {
+.background-grid {
 
     position: fixed;
 
     inset: 0;
 
-    z-index: -3;
+    z-index: -1;
 
-    background:
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(75, 55, 180, 0.18),
-            transparent 40%
+    pointer-events: none;
+
+    background-image:
+
+        linear-gradient(
+            rgba(150, 110, 255, 0.045) 1px,
+            transparent 1px
         ),
-        radial-gradient(
-            circle at 10% 90%,
-            rgba(90, 50, 180, 0.15),
-            transparent 45%
-        ),
-        #08090d;
+
+        linear-gradient(
+            90deg,
+            rgba(150, 110, 255, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 65px 65px;
+
+    mask-image:
+
+        linear-gradient(
+            to left,
+            black,
+            transparent 85%
+        );
+
+    animation:
+        gridMove 20s infinite linear;
 
 }
 
 
+@keyframes gridMove {
+
+    from {
+
+        background-position: 0 0;
+
+    }
+
+    to {
+
+        background-position: 65px 65px;
+
+    }
+
+}
+
 
 /* ==========================================
-   背景のX
+   背景の巨大なX
 ========================================== */
 
 .big-x {
@@ -891,7 +919,8 @@ h1 span {
 
     font-weight: 900;
 
-    color: rgba(20, 15, 60, 0.25);
+    color:
+        rgba(20, 15, 60, 0.25);
 
     -webkit-text-stroke:
         3px rgba(100, 70, 255, 0.35);
@@ -904,9 +933,223 @@ h1 span {
 }
 
 
+.portfolio-home .big-x {
+
+    right: 3vw;
+
+    top: 230px;
+
+    bottom: auto;
+
+    font-size: 520px;
+
+    color: transparent;
+
+    z-index: 0;
+
+    transform: rotate(-8deg);
+
+    animation:
+        floatX 8s infinite ease-in-out;
+
+}
+
+
+@keyframes floatX {
+
+    0%, 100% {
+
+        transform:
+            translateY(0) rotate(-8deg);
+
+        -webkit-text-stroke:
+            3px rgba(110, 80, 255, 0.35);
+
+        text-shadow:
+            0 0 30px rgba(100, 70, 255, 0.15);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-35px) rotate(-2deg);
+
+        -webkit-text-stroke:
+            3px rgba(90, 140, 255, 0.65);
+
+        text-shadow:
+            0 0 60px rgba(90, 100, 255, 0.3);
+
+    }
+
+}
+
 
 /* ==========================================
-   ヘッダー
+   マウスに追従する背景の光
+========================================== */
+
+.mouse-light {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 500px;
+
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(130, 80, 255, 0.18),
+            transparent 65%
+        );
+
+    transform:
+        translate(-50%, -50%);
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.5s ease;
+
+}
+
+
+/* ==========================================
+   光の粒子
+========================================== */
+
+#particles {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+}
+
+
+/* ==========================================
+   登場アニメーション
+========================================== */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(35px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes headerAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   ページ切り替え
+========================================== */
+
+.portfolio-home.page-exit {
+
+    opacity: 0;
+
+}
+
+
+/* ==========================================
+
+   デザイン演習ページ
+   2階層目
+
+========================================== */
+
+
+/* ==========================================
+   2階層目の背景
+========================================== */
+
+.page-bg {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -3;
+
+    background:
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(75, 55, 180, 0.18),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(90, 50, 180, 0.15),
+            transparent 45%
+        ),
+
+        #08090d;
+
+}
+
+
+/* ==========================================
+   2階層目のヘッダー
 ========================================== */
 
 .sub-header {
@@ -930,7 +1173,6 @@ h1 span {
 }
 
 
-
 /* ==========================================
    XBPロゴ
 ========================================== */
@@ -946,7 +1188,6 @@ h1 span {
 }
 
 
-
 .home-logo img {
 
     width: 100%;
@@ -956,7 +1197,6 @@ h1 span {
     object-fit: contain;
 
 }
-
 
 
 /* ==========================================
@@ -978,9 +1218,6 @@ h1 span {
 }
 
 
-
-/* 横線 */
-
 .header-line {
 
     width: 190px;
@@ -990,14 +1227,13 @@ h1 span {
     margin-left: 35px;
 
     background:
-        rgba(255,255,255,0.3);
+        rgba(255, 255, 255, 0.3);
 
 }
 
 
-
 /* ==========================================
-   メイン
+   2階層目のメイン
 ========================================== */
 
 .sub-main {
@@ -1019,7 +1255,6 @@ h1 span {
 }
 
 
-
 /* ==========================================
    小さいタイトル
 ========================================== */
@@ -1035,7 +1270,6 @@ h1 span {
     margin-bottom: 18px;
 
 }
-
 
 
 /* ==========================================
@@ -1059,12 +1293,10 @@ h1 span {
 }
 
 
-
-/* Ⅰ・Ⅱ */
-
 .sub-page-title span {
 
     background:
+
         linear-gradient(
             90deg,
             #c38cff 0%,
@@ -1079,7 +1311,6 @@ h1 span {
     color: transparent;
 
 }
-
 
 
 /* ==========================================
@@ -1103,7 +1334,6 @@ h1 span {
 }
 
 
-
 /* ==========================================
    セクション
 ========================================== */
@@ -1119,11 +1349,6 @@ h1 span {
 }
 
 
-
-/* ==========================================
-   セクションタイトル
-========================================== */
-
 .section-heading {
 
     display: flex;
@@ -1135,8 +1360,9 @@ h1 span {
 }
 
 
-
-/* 01 / 02 */
+/* ==========================================
+   セクション番号
+========================================== */
 
 .section-number {
 
@@ -1157,14 +1383,14 @@ h1 span {
     letter-spacing: 2px;
 
     border-right:
-        1px solid
-        rgba(255,255,255,0.25);
+        1px solid rgba(255, 255, 255, 0.25);
 
 }
 
 
-
-/* タイトル */
+/* ==========================================
+   セクションタイトル
+========================================== */
 
 .section-heading h2 {
 
@@ -1179,7 +1405,6 @@ h1 span {
     letter-spacing: 1px;
 
 }
-
 
 
 /* ==========================================
@@ -1199,9 +1424,8 @@ h1 span {
 }
 
 
-
 /* ==========================================
-   カード
+   ノートカード
 ========================================== */
 
 .note-card {
@@ -1212,8 +1436,7 @@ h1 span {
 
     box-sizing: border-box;
 
-    padding:
-        0 25px;
+    padding: 0 25px;
 
     display: flex;
 
@@ -1224,26 +1447,28 @@ h1 span {
     color: white;
 
     border:
-        1px solid
-        rgba(255,255,255,0.25);
+        1px solid rgba(255, 255, 255, 0.25);
 
     border-radius: 10px;
 
     background:
-        rgba(255,255,255,0.025);
+        rgba(255, 255, 255, 0.025);
 
     transition:
+
         transform 0.25s ease,
+
         border-color 0.25s ease,
+
         background 0.25s ease,
+
         box-shadow 0.25s ease;
 
 }
 
 
-
 /* ==========================================
-   番号
+   ノート番号
 ========================================== */
 
 .note-number {
@@ -1261,9 +1486,8 @@ h1 span {
 }
 
 
-
 /* ==========================================
-   タイトル
+   ノートタイトル
 ========================================== */
 
 .note-title {
@@ -1279,9 +1503,8 @@ h1 span {
 }
 
 
-
 /* ==========================================
-   矢印
+   ノートの矢印
 ========================================== */
 
 .note-arrow {
@@ -1293,15 +1516,16 @@ h1 span {
     color: #9a62ff;
 
     transition:
+
         transform 0.25s ease,
+
         color 0.25s ease;
 
 }
 
 
-
 /* ==========================================
-   ホバー
+   ノートのホバー
 ========================================== */
 
 .note-card:hover {
@@ -1310,21 +1534,20 @@ h1 span {
         translateX(8px);
 
     border-color:
-        rgba(145,95,255,0.8);
+        rgba(145, 95, 255, 0.8);
 
     background:
+
         linear-gradient(
             90deg,
-            rgba(120,70,255,0.12),
-            rgba(80,100,255,0.04)
+            rgba(120, 70, 255, 0.12),
+            rgba(80, 100, 255, 0.04)
         );
 
     box-shadow:
-        0 0 25px
-        rgba(120,80,255,0.12);
+        0 0 25px rgba(120, 80, 255, 0.12);
 
 }
-
 
 
 .note-card:hover .note-arrow {
@@ -1335,7 +1558,6 @@ h1 span {
     color: white;
 
 }
-
 
 
 /* ==========================================
@@ -1360,11 +1582,9 @@ h1 span {
 
     letter-spacing: 2px;
 
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 
 }
-
 
 
 .back-home:hover {
@@ -1377,13 +1597,199 @@ h1 span {
 }
 
 
+/* ==========================================
+   キーボード操作
+========================================== */
+
+a:focus-visible {
+
+    outline: 2px solid #b68cff;
+
+    outline-offset: 5px;
+
+}
+
 
 /* ==========================================
-   スマートフォン
+   スマートフォン対応
 ========================================== */
 
 @media (max-width: 700px) {
 
+
+    header {
+
+        height: 80px;
+
+        padding: 0 25px;
+
+    }
+
+
+    .logo img {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+
+    .logo span {
+
+        font-size: 22px;
+
+    }
+
+
+    nav {
+
+        display: none;
+
+    }
+
+
+    main {
+
+        padding: 60px 25px;
+
+    }
+
+
+    .small-title {
+
+        font-size: 11px;
+
+        letter-spacing: 5px;
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .small-title::after {
+
+        width: 70px;
+
+        flex-shrink: 1;
+
+    }
+
+
+    h1 {
+
+        font-size: clamp(30px, 9vw, 48px);
+
+        letter-spacing: -2px;
+
+        white-space: normal;
+
+    }
+
+
+    .description {
+
+        font-size: 13px;
+
+    }
+
+
+    .portfolio-list {
+
+        width: 100%;
+
+    }
+
+
+    .portfolio-item {
+
+        height: 75px;
+
+        padding: 0 20px;
+
+    }
+
+
+    .portfolio-item strong {
+
+        font-size: 13px;
+
+    }
+
+
+    .portfolio-item:hover {
+
+        transform: translateX(4px);
+
+    }
+
+
+    .number {
+
+        width: 35px;
+
+        margin-right: 12px;
+
+    }
+
+
+    .arrow {
+
+        font-size: 23px;
+
+    }
+
+
+    .big-x {
+
+        font-size: 350px;
+
+        right: -120px;
+
+        bottom: -100px;
+
+    }
+
+
+    .portfolio-home .big-x {
+
+        font-size: 350px;
+
+        right: -120px;
+
+        top: auto;
+
+        bottom: -100px;
+
+    }
+
+
+    .aurora {
+
+        width: 350px;
+
+        height: 350px;
+
+        filter: blur(80px);
+
+    }
+
+
+    .mouse-light {
+
+        display: none;
+
+    }
+
+
+    .background-grid {
+
+        background-size: 45px 45px;
+
+    }
+
+
+    /* 2階層目 */
 
     .sub-header {
 
@@ -1479,8 +1885,7 @@ h1 span {
 
         min-height: 62px;
 
-        padding:
-            0 18px;
+        padding: 0 18px;
 
     }
 
@@ -1492,20 +1897,41 @@ h1 span {
     }
 
 
-    .big-x {
+    .back-home {
 
-        font-size: 350px;
+        margin-left: 25px;
 
-        right: -120px;
+    }
 
-        bottom: -100px;
+}
+
+
+/* ==========================================
+   アニメーションを減らす設定への対応
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .portfolio-home,
+
+    .portfolio-home *,
+
+    .portfolio-home *::before,
+
+    .portfolio-home *::after {
+
+        animation: none !important;
+
+        transition: none !important;
 
     }
 
 
-    .back-home {
+    #particles,
 
-        margin-left: 25px;
+    .mouse-light {
+
+        display: none;
 
     }
 

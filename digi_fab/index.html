@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -5,259 +6,1270 @@
 
     <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>デジタルファブリケーション | YUWA'S PORTFOLIO</title>
 
     <link rel="stylesheet" href="../css/style.css">
 
     <link rel="shortcut icon" href="../images/xbp.ico">
 
+
+    <style>
+
+        /* =================================
+           メインの位置調整
+        ================================= */
+
+        .portfolio-home .sub-main {
+
+            padding-left: 0;
+
+            padding-right: 0;
+
+        }
+
+
+        /* =================================
+           ページタイトル
+           PCでは横一列に表示
+        ================================= */
+
+        .sub-page-title {
+
+            font-size: clamp(26px, 4vw, 56px);
+
+            white-space: nowrap;
+
+            overflow-wrap: normal;
+
+            animation:
+                fadeUp 1s 0.3s ease both;
+
+        }
+
+
+        /* =================================
+           タイトルの色を変化させる
+        ================================= */
+
+        .sub-page-title span {
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #c38cff,
+                    #a35cff,
+                    #4f8cff,
+                    #69dfff,
+                    #ffffff
+                );
+
+            background-size: 300% 100%;
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                gradientFlow 6s infinite ease-in-out;
+
+        }
+
+
+        /* =================================
+           小さいタイトルと説明文
+        ================================= */
+
+        .sub-small-title {
+
+            animation:
+                fadeUp 0.8s 0.1s ease both;
+
+        }
+
+        .sub-description {
+
+            animation:
+                fadeUp 1s 0.5s ease both;
+
+        }
+
+
+        /* =================================
+           ヘッダー
+        ================================= */
+
+        .sub-header {
+
+            animation:
+                headerAppear 0.8s ease both;
+
+        }
+
+
+        /* =================================
+           ロゴの発光
+        ================================= */
+
+        .home-logo img {
+
+            transition: 0.4s ease;
+
+        }
+
+        .home-logo:hover img {
+
+            transform: scale(1.1);
+
+            filter:
+                drop-shadow(0 0 15px #a35cff);
+
+        }
+
+
+        /* =================================
+           ヘッダーの動く横線
+        ================================= */
+
+        .header-line {
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #a35cff,
+                    #4f8cff,
+                    transparent
+                );
+
+            background-size: 200% 100%;
+
+            animation:
+                lineFlow 5s infinite linear;
+
+        }
+
+
+        /* =================================
+           セクションタイトル
+        ================================= */
+
+        .section-heading h2 {
+
+            transition: 0.3s ease;
+
+        }
+
+        .portfolio-section:hover
+        .section-heading h2 {
+
+            text-shadow:
+                0 0 20px rgba(160, 100, 255, 0.5);
+
+        }
+
+
+        /* =================================
+           ノートカード
+        ================================= */
+
+        .note-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            backdrop-filter: blur(12px);
+
+            transition:
+
+                transform 0.4s ease,
+
+                border-color 0.4s ease,
+
+                background 0.4s ease,
+
+                box-shadow 0.4s ease;
+
+        }
+
+
+        .note-card > * {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        /* =================================
+           カードにマウスを乗せたとき
+        ================================= */
+
+        .note-card:hover {
+
+            transform:
+                translateX(10px) scale(1.015);
+
+            border-color: #a675ff;
+
+            box-shadow:
+
+                0 0 30px rgba(140, 80, 255, 0.3),
+
+                inset 0 0 20px rgba(100, 60, 255, 0.08);
+
+        }
+
+
+        .note-card:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        .note-number {
+
+            transition: 0.3s ease;
+
+        }
+
+
+        .note-card:hover .note-number {
+
+            color: #c9a5ff;
+
+        }
+
+
+        /* =================================
+           カードを横切る光
+        ================================= */
+
+        .note-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                linear-gradient(
+                    110deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.15),
+                    transparent
+                );
+
+            transform: translateX(-100%);
+
+            transition: transform 0.7s ease;
+
+            pointer-events: none;
+
+        }
+
+
+        .note-card:hover::before {
+
+            transform: translateX(100%);
+
+        }
+
+
+        /* =================================
+           カード内のマウス追従
+        ================================= */
+
+        .note-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                radial-gradient(
+                    circle at
+                    var(--mouse-x, 50%)
+                    var(--mouse-y, 50%),
+                    rgba(165, 110, 255, 0.25),
+                    transparent 180px
+                );
+
+            opacity: 0;
+
+            transition: opacity 0.3s ease;
+
+            pointer-events: none;
+
+        }
+
+
+        .note-card:hover::after {
+
+            opacity: 1;
+
+        }
+
+
+        /* =================================
+           スクロール時の登場演出
+        ================================= */
+
+        .reveal:not(.visible) {
+
+            opacity: 0;
+
+            translate: 0 30px;
+
+        }
+
+
+        .reveal.visible {
+
+            animation:
+                scrollAppear 0.8s ease both;
+
+        }
+
+
+        @keyframes scrollAppear {
+
+            from {
+
+                opacity: 0;
+
+                translate: 0 30px;
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                translate: 0 0;
+
+            }
+
+        }
+
+
+        /* =================================
+           ポートフォリオへ戻る
+        ================================= */
+
+        .back-home {
+
+            position: relative;
+
+            z-index: 3;
+
+            margin-left: 0;
+
+            padding: 15px 25px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.2);
+
+            border-radius: 8px;
+
+            background:
+                rgba(255, 255, 255, 0.025);
+
+        }
+
+
+        .back-home:hover {
+
+            border-color: #a35cff;
+
+            color: white;
+
+            box-shadow:
+                0 0 20px rgba(140, 80, 255, 0.3);
+
+        }
+
+
+        /* =================================
+           スマートフォン対応
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            .note-card:hover {
+
+                transform: translateX(4px);
+
+            }
+
+
+            .sub-page-title {
+
+                font-size: clamp(22px, 6vw, 40px);
+
+                white-space: normal;
+
+                overflow-wrap: normal;
+
+                letter-spacing: -1px;
+
+            }
+
+
+            .sub-main {
+
+                padding-left: 0;
+
+                padding-right: 0;
+
+            }
+
+        }
+
+
+        /* =================================
+           アニメーション軽減設定
+        ================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .reveal {
+
+                opacity: 1 !important;
+
+                translate: none !important;
+
+                animation: none !important;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
-<body>
-
-
-<!-- ==============================
-     背景
-============================== -->
-
-<div class="page-bg"></div>
-
-<div class="big-x">
-    X
-</div>
-
-
-
-<!-- ==============================
-     ヘッダー
-============================== -->
-
-<header class="sub-header">
-
-    <!-- ポートフォリオトップへ戻る -->
-
-    <a href="../index.html" class="home-logo">
-
-        <img src="../images/0_XBlogo.png" alt="XBP">
-
-    </a>
-
-
-    <div class="top-title">
-        YUWA'S PORTFOLIO
-    </div>
-
-
-    <div class="header-line"></div>
-
-</header>
-
-
-
-<!-- ==============================
-     メイン
-============================== -->
-
-<main class="sub-main">
-
-
-    <!-- 小さいタイトル -->
-
-    <p class="sub-small-title">
-        DIGITAL FABRICATION
-    </p>
-
-
-
-    <!-- ページタイトル -->
-
-    <h1 class="sub-page-title">
-
-        デジタル
-
-        <span>
-            ファブリケーション
-        </span>
-
-    </h1>
-
-
-
-    <!-- 説明 -->
-
-    <p class="sub-description">
-
-        デジタルファブリケーションで取り組んだ
-        制作物や演習ノートをまとめています。
-
-    </p>
-
+<body class="portfolio-home">
 
 
     <!-- =================================
-         演習ノート一覧
+         動く背景
     ================================= -->
 
-    <section class="portfolio-section">
+    <div class="aurora aurora-1"></div>
+
+    <div class="aurora aurora-2"></div>
+
+    <div class="aurora aurora-3"></div>
+
+    <div class="background-grid"></div>
+
+    <div class="mouse-light"></div>
+
+    <canvas id="particles" aria-hidden="true"></canvas>
 
 
-        <div class="section-heading">
+    <!-- =================================
+         背景の巨大なX
+    ================================= -->
 
-            <span class="section-number">
-                01
-            </span>
+    <div class="big-x" aria-hidden="true">
 
-            <h2>
-                演習ノート一覧
-            </h2>
+        X
+
+    </div>
+
+
+    <!-- =================================
+         ヘッダー
+    ================================= -->
+
+    <header class="sub-header">
+
+
+        <!-- ポートフォリオトップへ戻る -->
+
+        <a href="../index.html" class="home-logo">
+
+            <img src="../images/0_XBlogo.png" alt="XBP">
+
+        </a>
+
+
+        <div class="top-title">
+
+            YUWA'S PORTFOLIO
 
         </div>
 
 
+        <div class="header-line"></div>
 
-        <div class="note-list">
+
+    </header>
 
 
-            <!-- ==============================
-                 ピンセット
-            ============================== -->
+    <!-- =================================
+         メイン
+    ================================= -->
 
-            <a href="./degi_fab1.html"
-               target="_blank"
-               class="note-card">
+    <main class="sub-main">
 
-                <span class="note-number">
+
+        <!-- 小さいタイトル -->
+
+        <p class="sub-small-title">
+
+            DIGITAL FABRICATION
+
+        </p>
+
+
+        <!-- ページタイトル -->
+
+        <h1 class="sub-page-title">
+
+            デジタル<span>ファブリケーション</span>
+
+        </h1>
+
+
+        <!-- 説明文 -->
+
+        <p class="sub-description">
+
+            デジタルファブリケーションで取り組んだ
+            制作物や演習ノートをまとめています。
+
+        </p>
+
+
+        <!-- =================================
+             演習ノート一覧
+        ================================= -->
+
+        <section class="portfolio-section">
+
+
+            <div class="section-heading">
+
+                <span class="section-number">
+
                     01
+
                 </span>
 
-                <span class="note-title">
-                    ピンセット
-                </span>
 
-                <span class="note-arrow">
-                    →
-                </span>
+                <h2>
 
-            </a>
+                    演習ノート一覧
 
+                </h2>
+
+            </div>
 
 
-            <!-- ==============================
-                 レーザーカッター
-            ============================== -->
-
-            <a href="./degi_fab2.html"
-               target="_blank"
-               class="note-card">
-
-                <span class="note-number">
-                    02
-                </span>
-
-                <span class="note-title">
-                    レーザーカッター
-                </span>
-
-                <span class="note-arrow">
-                    →
-                </span>
-
-            </a>
-            <!-- ==============================
-                 観察
-            ============================== -->
-
-            <a href="./degi_fab3.html"
-               target="_blank"
-               class="note-card">
-
-                <span class="note-number">
-                    03
-                </span>
-
-                <span class="note-title">
-                    観察
-                </span>
-
-                <span class="note-arrow">
-                    →
-                </span>
-</a>
-
-            <!-- ==============================
-                 問題発見
-            ============================== -->
-
-            <a href="./degi_fab4.html"
-               target="_blank"
-               class="note-card">
-
-                <span class="note-number">
-                    04
-                </span>
-
-                <span class="note-title">
-                    問題発見
-                </span>
-
-                <span class="note-arrow">
-                    →
-                </span>
-</a>
-            
+            <div class="note-list">
 
 
+                <!-- =================================
+                     ピンセット
+                ================================= -->
+
+                <a href="./degi_fab1.html"
+                   target="_blank"
+                   rel="noopener"
+                   class="note-card">
+
+                    <span class="note-number">
+
+                        01
+
+                    </span>
+
+                    <span class="note-title">
+
+                        ピンセット
+
+                    </span>
+
+                    <span class="note-arrow">
+
+                        →
+
+                    </span>
+
+                </a>
 
 
-            <!-- ==============================
-                 今後追加する場合
-                 
-                 ↓このカードをコピー
-            ============================== -->
+                <!-- =================================
+                     レーザーカッター
+                ================================= -->
+
+                <a href="./degi_fab2.html"
+                   target="_blank"
+                   rel="noopener"
+                   class="note-card">
+
+                    <span class="note-number">
+
+                        02
+
+                    </span>
+
+                    <span class="note-title">
+
+                        レーザーカッター
+
+                    </span>
+
+                    <span class="note-arrow">
+
+                        →
+
+                    </span>
+
+                </a>
 
 
-            <!--
+                <!-- =================================
+                     観察
+                ================================= -->
 
-            <a href="./degi_fab3.html"
-               target="_blank"
-               class="note-card">
+                <a href="./degi_fab3.html"
+                   target="_blank"
+                   rel="noopener"
+                   class="note-card">
 
-                <span class="note-number">
-                    03
-                </span>
+                    <span class="note-number">
 
-                <span class="note-title">
-                    作品名
-                </span>
+                        03
 
-                <span class="note-arrow">
-                    →
-                </span>
+                    </span>
 
-            </a>
+                    <span class="note-title">
 
-            -->
+                        観察
 
+                    </span>
 
-        </div>
+                    <span class="note-arrow">
 
-    </section>
+                        →
 
+                    </span>
 
-
-    <!-- ==============================
-         ポートフォリオへ戻る
-    ============================== -->
-
-    <a href="../index.html" class="back-home">
-
-        ← PORTFOLIO
-
-    </a>
+                </a>
 
 
-</main>
+                <!-- =================================
+                     問題発見
+                ================================= -->
+
+                <a href="./degi_fab4.html"
+                   target="_blank"
+                   rel="noopener"
+                   class="note-card">
+
+                    <span class="note-number">
+
+                        04
+
+                    </span>
+
+                    <span class="note-title">
+
+                        問題発見
+
+                    </span>
+
+                    <span class="note-arrow">
+
+                        →
+
+                    </span>
+
+                </a>
+
+
+                <!-- =================================
+                     今後作品を追加する場合
+
+                     以下のカードをコピー
+                ================================= -->
+
+
+                <!--
+
+                <a href="./degi_fab5.html"
+                   target="_blank"
+                   rel="noopener"
+                   class="note-card">
+
+                    <span class="note-number">
+
+                        05
+
+                    </span>
+
+                    <span class="note-title">
+
+                        新しい作品名
+
+                    </span>
+
+                    <span class="note-arrow">
+
+                        →
+
+                    </span>
+
+                </a>
+
+                -->
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             ポートフォリオへ戻る
+        ================================= -->
+
+        <a href="../index.html" class="back-home">
+
+            ← PORTFOLIO
+
+        </a>
+
+
+    </main>
+
+
+    <!-- =================================
+         JavaScript
+    ================================= -->
+
+    <script>
+
+
+        // アニメーション設定
+
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        );
+
+
+        // =================================
+        // マウスに追従する光
+        // =================================
+
+        const mouseLight =
+            document.querySelector(".mouse-light");
+
+
+        document.addEventListener(
+            "pointermove",
+            function(event) {
+
+                if (
+                    reducedMotion.matches ||
+                    event.pointerType !== "mouse"
+                ) {
+
+                    return;
+
+                }
+
+                mouseLight.style.left =
+                    event.clientX + "px";
+
+                mouseLight.style.top =
+                    event.clientY + "px";
+
+                mouseLight.style.opacity = "1";
+
+            }
+        );
+
+
+        document.documentElement.addEventListener(
+            "pointerleave",
+            function() {
+
+                mouseLight.style.opacity = "0";
+
+            }
+        );
+
+
+        // =================================
+        // 光の粒子
+        // =================================
+
+        const canvas =
+            document.getElementById("particles");
+
+        const ctx =
+            canvas.getContext("2d");
+
+
+        let particles = [];
+
+        let animationId = null;
+
+
+        // 画面サイズ
+
+        function resizeCanvas() {
+
+            canvas.width =
+                window.innerWidth;
+
+            canvas.height =
+                window.innerHeight;
+
+        }
+
+
+        resizeCanvas();
+
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas
+        );
+
+
+        // 粒子の数
+
+        const particleCount =
+            window.innerWidth < 700 ? 30 : 100;
+
+
+        // 粒子を作成
+
+        for (let i = 0; i < particleCount; i++) {
+
+            particles.push({
+
+                x:
+                    Math.random() * canvas.width,
+
+                y:
+                    Math.random() * canvas.height,
+
+                size:
+                    Math.random() * 2 + 0.3,
+
+                speedX:
+                    (Math.random() - 0.5) * 0.45,
+
+                speedY:
+                    (Math.random() - 0.5) * 0.45,
+
+                opacity:
+                    Math.random() * 0.6 + 0.1,
+
+                phase:
+                    Math.random() * Math.PI * 2,
+
+                color:
+                    Math.random() > 0.5
+                        ? "160, 110, 255"
+                        : "90, 150, 255"
+
+            });
+
+        }
+
+
+        // 粒子を動かす
+
+        function animateParticles() {
+
+            ctx.clearRect(
+                0, 0,
+                canvas.width,
+                canvas.height
+            );
+
+
+            if (reducedMotion.matches) {
+
+                animationId = null;
+
+                return;
+
+            }
+
+
+            particles.forEach(function(particle) {
+
+
+                particle.x += particle.speedX;
+
+                particle.y += particle.speedY;
+
+                particle.phase += 0.015;
+
+
+                // 画面の端まで移動した場合
+
+                if (particle.x > canvas.width) {
+
+                    particle.x = 0;
+
+                }
+
+                if (particle.x < 0) {
+
+                    particle.x = canvas.width;
+
+                }
+
+                if (particle.y > canvas.height) {
+
+                    particle.y = 0;
+
+                }
+
+                if (particle.y < 0) {
+
+                    particle.y = canvas.height;
+
+                }
+
+
+                // 粒子の明るさ
+
+                const brightness =
+                    particle.opacity *
+                    (0.65 + Math.sin(particle.phase) * 0.35);
+
+
+                // 粒子を描画
+
+                ctx.beginPath();
+
+
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.size,
+                    0,
+                    Math.PI * 2
+                );
+
+
+                ctx.fillStyle =
+                    "rgba(" +
+                    particle.color +
+                    "," +
+                    brightness +
+                    ")";
+
+
+                ctx.shadowBlur = 10;
+
+
+                ctx.shadowColor =
+                    "rgb(" + particle.color + ")";
+
+
+                ctx.fill();
+
+            });
+
+
+            animationId =
+                requestAnimationFrame(animateParticles);
+
+        }
+
+
+        // アニメーション開始
+
+        if (ctx && !reducedMotion.matches) {
+
+            animateParticles();
+
+        }
+
+
+        // アニメーション設定変更への対応
+
+        reducedMotion.addEventListener(
+            "change",
+            function() {
+
+                if (!ctx) {
+
+                    return;
+
+                }
+
+
+                if (reducedMotion.matches) {
+
+                    cancelAnimationFrame(animationId);
+
+                    animationId = null;
+
+                    ctx.clearRect(
+                        0, 0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                    mouseLight.style.opacity = "0";
+
+                } else if (animationId === null) {
+
+                    animateParticles();
+
+                }
+
+            }
+        );
+
+
+        // =================================
+        // カード内のマウス追従
+        // =================================
+
+        document.querySelectorAll(".note-card").forEach(
+            function(card) {
+
+                card.addEventListener(
+                    "pointermove",
+                    function(event) {
+
+                        if (
+                            reducedMotion.matches ||
+                            event.pointerType !== "mouse"
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const rect =
+                            card.getBoundingClientRect();
+
+
+                        const x =
+                            event.clientX - rect.left;
+
+
+                        const y =
+                            event.clientY - rect.top;
+
+
+                        card.style.setProperty(
+                            "--mouse-x",
+                            x + "px"
+                        );
+
+
+                        card.style.setProperty(
+                            "--mouse-y",
+                            y + "px"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        // =================================
+        // スクロール時の登場アニメーション
+        // =================================
+
+        if (
+            !reducedMotion.matches &&
+            "IntersectionObserver" in window
+        ) {
+
+
+            const observer =
+                new IntersectionObserver(
+
+                    function(entries) {
+
+                        entries.forEach(
+                            function(entry) {
+
+                                if (entry.isIntersecting) {
+
+                                    entry.target.classList.add(
+                                        "visible"
+                                    );
+
+                                    observer.unobserve(
+                                        entry.target
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    },
+
+                    {
+                        threshold: 0.1
+                    }
+
+                );
+
+
+            document.querySelectorAll(
+                ".section-heading, .note-list > .note-card, .back-home"
+            ).forEach(function(element) {
+
+                element.classList.add("reveal");
+
+                observer.observe(element);
+
+                element.addEventListener(
+                    "focus",
+                    function() {
+
+                        element.classList.add("visible");
+
+                        observer.unobserve(element);
+
+                    }
+                );
+
+            });
+
+        }
+
+
+        // =================================
+        // ページ切り替え
+        // =================================
+
+        let isLeaving = false;
+
+
+        document.querySelectorAll("a[href]").forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function(event) {
+
+                        const destination =
+                            link.getAttribute("href");
+
+
+                        if (
+
+                            event.defaultPrevented ||
+
+                            event.button !== 0 ||
+
+                            !destination ||
+
+                            destination.startsWith("#") ||
+
+                            link.origin !== window.location.origin ||
+
+                            link.hasAttribute("download") ||
+
+                            (link.target && link.target !== "_self") ||
+
+                            event.ctrlKey ||
+
+                            event.metaKey ||
+
+                            event.shiftKey ||
+
+                            event.altKey ||
+
+                            reducedMotion.matches
+
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        event.preventDefault();
+
+
+                        if (isLeaving) {
+
+                            return;
+
+                        }
+
+
+                        isLeaving = true;
+
+
+                        document.body.classList.add(
+                            "page-exit"
+                        );
+
+
+                        setTimeout(function() {
+
+                            window.location.href = link.href;
+
+                        }, 350);
+
+                    }
+                );
+
+            }
+        );
+
+
+        // =================================
+        // ブラウザの戻るボタンへの対応
+        // =================================
+
+        window.addEventListener(
+            "pageshow",
+            function() {
+
+                document.body.classList.remove(
+                    "page-exit"
+                );
+
+                isLeaving = false;
+
+            }
+        );
+
+
+    </script>
 
 
 </body>

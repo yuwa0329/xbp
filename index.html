@@ -1,28 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>XBP_portfolio</title>
 
     <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 
-<body>
+<body class="portfolio-home">
 
 
-    <!-- ==========================
+    <!-- =================================
+         動く背景
+    ================================== -->
+
+    <div class="aurora aurora-1"></div>
+
+    <div class="aurora aurora-2"></div>
+
+    <div class="aurora aurora-3"></div>
+
+    <div class="background-grid"></div>
+
+    <div class="mouse-light"></div>
+
+    <canvas id="particles" aria-hidden="true"></canvas>
+
+
+    <!-- =================================
          ヘッダー
-    =========================== -->
+    ================================== -->
 
     <header>
 
         <div class="logo">
 
             <a href="./index.html">
+
                 <img src="./images/0_XBlogo.png" alt="XBP">
+
             </a>
 
             <span>XBP</span>
@@ -30,58 +55,40 @@
         </div>
 
 
-        <!-- ナビゲーション -->
-
         <nav>
 
-            <a href="./index.html">
-                HOME
-            </a>
+            <a href="./index.html">HOME</a>
 
-            <a href="#">
-                ABOUT
-            </a>
+            <a href="#">ABOUT</a>
 
-            <a href="./index.html">
-                PORTFOLIO
-            </a>
+            <a href="./index.html">PORTFOLIO</a>
 
         </nav>
 
     </header>
 
 
-
-    <!-- ==========================
+    <!-- =================================
          メイン
-    =========================== -->
+    ================================== -->
 
     <main>
 
-
-        <!-- 小さいタイトル -->
-
         <p class="small-title">
+
             YUWA'S PORTFOLIO
+
         </p>
 
-
-
-        <!-- メインタイトル -->
 
         <h1>
 
             yuuwaの<br>
 
-            <span>
-                ポートフォリオ一覧
-            </span>
+            <span>ポートフォリオ一覧</span>
 
         </h1>
 
-
-
-        <!-- 説明文 -->
 
         <p class="description">
 
@@ -90,10 +97,7 @@
         </p>
 
 
-
-        <!-- ==========================
-             ポートフォリオ一覧
-        =========================== -->
+        <!-- ポートフォリオ一覧 -->
 
         <div class="portfolio-list">
 
@@ -103,22 +107,13 @@
             <a href="./de12/index.html"
                class="portfolio-item">
 
-                <span class="number">
-                    01
-                </span>
+                <span class="number">01</span>
 
+                <strong>デザイン演習Ⅰ・Ⅱ</strong>
 
-                <strong>
-                    デザイン演習Ⅰ・Ⅱ
-                </strong>
-
-
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </a>
-
 
 
             <!-- デジタルファブリケーション -->
@@ -126,36 +121,405 @@
             <a href="./digi_fab/index.html"
                class="portfolio-item">
 
-                <span class="number">
-                    02
-                </span>
+                <span class="number">02</span>
 
+                <strong>デジタルファブリケーション</strong>
 
-                <strong>
-                    デジタルファブリケーション
-                </strong>
-
-
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </a>
-
 
         </div>
 
     </main>
 
 
+    <!-- =================================
+         背景の巨大なX
+    ================================== -->
 
-    <!-- ==========================
-         背景のX
-    =========================== -->
+    <div class="big-x" aria-hidden="true">
 
-    <div class="big-x">
         X
+
     </div>
+
+
+    <!-- =================================
+         JavaScript
+    ================================== -->
+
+    <script>
+
+
+        // アニメーション設定
+
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        );
+
+
+        // =================================
+        // マウスに追従する光
+        // =================================
+
+        const mouseLight =
+            document.querySelector(".mouse-light");
+
+        document.addEventListener("pointermove", function(event) {
+
+            if (
+                reducedMotion.matches ||
+                event.pointerType !== "mouse"
+            ) {
+                return;
+            }
+
+            mouseLight.style.left =
+                event.clientX + "px";
+
+            mouseLight.style.top =
+                event.clientY + "px";
+
+            mouseLight.style.opacity = "1";
+
+        });
+
+
+        document.documentElement.addEventListener(
+            "pointerleave",
+            function() {
+
+                mouseLight.style.opacity = "0";
+
+            }
+        );
+
+
+        // =================================
+        // 光の粒子
+        // =================================
+
+        const canvas =
+            document.getElementById("particles");
+
+        const ctx = canvas.getContext("2d");
+
+        let particles = [];
+
+        let animationId = null;
+
+
+        // 画面サイズ
+
+        function resizeCanvas() {
+
+            canvas.width = window.innerWidth;
+
+            canvas.height = window.innerHeight;
+
+        }
+
+        resizeCanvas();
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas
+        );
+
+
+        // 粒子の数
+
+        const particleCount =
+            window.innerWidth < 700 ? 30 : 100;
+
+
+        // 粒子を作成
+
+        for (let i = 0; i < particleCount; i++) {
+
+            particles.push({
+
+                x:
+                    Math.random() * canvas.width,
+
+                y:
+                    Math.random() * canvas.height,
+
+                size:
+                    Math.random() * 2 + 0.3,
+
+                speedX:
+                    (Math.random() - 0.5) * 0.45,
+
+                speedY:
+                    (Math.random() - 0.5) * 0.45,
+
+                opacity:
+                    Math.random() * 0.6 + 0.1,
+
+                phase:
+                    Math.random() * Math.PI * 2,
+
+                color:
+                    Math.random() > 0.5
+                        ? "160, 110, 255"
+                        : "90, 150, 255"
+
+            });
+
+        }
+
+
+        // 粒子を動かす
+
+        function animateParticles() {
+
+            ctx.clearRect(
+                0, 0,
+                canvas.width,
+                canvas.height
+            );
+
+            if (reducedMotion.matches) {
+
+                animationId = null;
+
+                return;
+
+            }
+
+            particles.forEach(function(particle) {
+
+                particle.x += particle.speedX;
+
+                particle.y += particle.speedY;
+
+                particle.phase += 0.015;
+
+
+                // 画面の端まで移動した場合
+
+                if (particle.x > canvas.width) {
+
+                    particle.x = 0;
+
+                }
+
+                if (particle.x < 0) {
+
+                    particle.x = canvas.width;
+
+                }
+
+                if (particle.y > canvas.height) {
+
+                    particle.y = 0;
+
+                }
+
+                if (particle.y < 0) {
+
+                    particle.y = canvas.height;
+
+                }
+
+
+                // 粒子の明るさ
+
+                const brightness =
+                    particle.opacity *
+                    (0.65 + Math.sin(particle.phase) * 0.35);
+
+
+                // 粒子を描画
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.size,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle =
+                    "rgba(" +
+                    particle.color +
+                    "," +
+                    brightness +
+                    ")";
+
+                ctx.shadowBlur = 10;
+
+                ctx.shadowColor =
+                    "rgb(" + particle.color + ")";
+
+                ctx.fill();
+
+            });
+
+            animationId =
+                requestAnimationFrame(animateParticles);
+
+        }
+
+
+        if (ctx && !reducedMotion.matches) {
+
+            animateParticles();
+
+        }
+
+
+        // アニメーション設定の変更
+
+        reducedMotion.addEventListener("change", function() {
+
+            if (!ctx) {
+                return;
+            }
+
+            if (reducedMotion.matches) {
+
+                cancelAnimationFrame(animationId);
+
+                animationId = null;
+
+                ctx.clearRect(
+                    0, 0,
+                    canvas.width,
+                    canvas.height
+                );
+
+            } else if (animationId === null) {
+
+                animateParticles();
+
+            }
+
+        });
+
+
+        // =================================
+        // カード内のマウス追従エフェクト
+        // =================================
+
+        document.querySelectorAll(".portfolio-item").forEach(
+            function(card) {
+
+                card.addEventListener("pointermove", function(event) {
+
+                    const rect =
+                        card.getBoundingClientRect();
+
+                    const x =
+                        event.clientX - rect.left;
+
+                    const y =
+                        event.clientY - rect.top;
+
+                    card.style.setProperty(
+                        "--mouse-x",
+                        x + "px"
+                    );
+
+                    card.style.setProperty(
+                        "--mouse-y",
+                        y + "px"
+                    );
+
+                });
+
+            }
+        );
+
+
+        // =================================
+        // ページ切り替え
+        // =================================
+
+        let isLeaving = false;
+
+        document.querySelectorAll("a[href]").forEach(
+            function(link) {
+
+                link.addEventListener("click", function(event) {
+
+                    const destination =
+                        link.getAttribute("href");
+
+                    if (
+
+                        event.defaultPrevented ||
+
+                        event.button !== 0 ||
+
+                        !destination ||
+
+                        destination.startsWith("#") ||
+
+                        link.origin !== window.location.origin ||
+
+                        link.hasAttribute("download") ||
+
+                        (link.target && link.target !== "_self") ||
+
+                        event.ctrlKey ||
+
+                        event.shiftKey ||
+
+                        event.altKey ||
+
+                        event.metaKey ||
+
+                        reducedMotion.matches
+
+                    ) {
+
+                        return;
+
+                    }
+
+                    event.preventDefault();
+
+                    if (isLeaving) {
+
+                        return;
+
+                    }
+
+                    isLeaving = true;
+
+                    document.body.classList.add(
+                        "page-exit"
+                    );
+
+                    setTimeout(function() {
+
+                        window.location.href = link.href;
+
+                    }, 350);
+
+                });
+
+            }
+        );
+
+
+        // 戻るボタンへの対応
+
+        window.addEventListener("pageshow", function() {
+
+            document.body.classList.remove("page-exit");
+
+            isLeaving = false;
+
+        });
+
+
+    </script>
 
 
 </body>
