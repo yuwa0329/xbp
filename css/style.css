@@ -1936,3 +1936,41 @@ a:focus-visible {
     }
 
 }
+
+/* 背景による余分な空白を防止 */
+
+.portfolio-home .aurora,
+.portfolio-home .background-grid,
+.portfolio-home .mouse-light,
+.portfolio-home #particles,
+.portfolio-home .big-x,
+.portfolio-home .page-bg {
+
+    position: fixed;
+    pointer-events: none;
+
+}
+
+.portfolio-home #particles,
+.portfolio-home .background-grid,
+.portfolio-home .page-bg {
+
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+.portfolio-home header {
+
+    position: relative;
+    z-index: 10;
+
+}
+
+.portfolio-home main {
+
+    position: relative;
+    z-index: 2;
+
+}
